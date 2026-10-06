@@ -1,0 +1,1 @@
+Source: provinces.open-api.vn API v2 (2-level administrative units effective 2025-07-01). Fetched 2026-10-06.

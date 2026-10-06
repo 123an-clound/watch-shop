@@ -177,6 +177,19 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"lw_rate_events": {
+                  Row: {
+                    "bucket": string,"created_at": string,"id": number,"updated_at": string
+                  }
+                  Insert: {
+                    "bucket": string,"created_at"?: string,"id"?: never,"updated_at"?: string
+                  }
+                  Update: {
+                    "bucket"?: string,"created_at"?: string,"id"?: never,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"lw_site_settings": {
                   Row: {
                     "address": string | null,"contact_email": string | null,"contact_phone": string | null,"created_at": string,"free_shipping_threshold": number,"hero_image_path": string | null,"hero_subtitle_en": string | null,"hero_subtitle_vi": string | null,"hero_title_en": string | null,"hero_title_vi": string | null,"id": number,"shipping_fee": number,"social_links": NonNullable<Json>,"store_name": string,"updated_at": string
@@ -223,6 +236,9 @@ isOneToOne: false
                            },
 "lw_get_order_by_code":
 { Args: { "p_code": string,"p_phone": string }; Returns: Json
+                           },
+"lw_hit_rate_limit":
+{ Args: { "p_bucket": string,"p_max": number,"p_window_seconds": number }; Returns: boolean
                            },
 "lw_immutable_unaccent":
 { Args: { "": string }; Returns: string

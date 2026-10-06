@@ -161,7 +161,9 @@
     "summary": "Order summary",
     "added": "Added to cart.",
     "updated": "Your cart was updated with the latest prices and stock.",
-    "checking": "Checking prices and stock…"
+    "checking": "Checking prices and stock…",
+    "pageTitle": "Your cart",
+    "metaDescription": "Review your cart before checkout."
   },
   "Admin": {
     "title": "Admin",
@@ -356,5 +358,63 @@
       "hours": "Opening hours",
       "hoursValue": "9:00 – 21:00, every day"
     }
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "metaDescription": "Complete your order — cash on delivery (COD).",
+    "contact": "Contact details",
+    "shipping": "Shipping address",
+    "payment": "Payment method",
+    "cod": "Cash on delivery (COD)",
+    "codHint": "Pay the courier in cash after inspecting your watch.",
+    "name": "Full name",
+    "phone": "Phone number",
+    "email": "Email",
+    "emailHint": "To receive your order confirmation by email.",
+    "province": "Province / City",
+    "ward": "Ward / Commune",
+    "street": "House number, street",
+    "note": "Order note",
+    "selectProvince": "Select province / city",
+    "selectWard": "Select ward / commune",
+    "loadingUnits": "Loading address list…",
+    "savedAddress": "Saved address",
+    "useSavedAddress": "Use saved address",
+    "placeOrder": "Place order",
+    "placing": "Placing order…",
+    "agree": "By placing your order you agree to our warranty and shipping policies.",
+    "emptyCart": "Your cart is empty — nothing to check out.",
+    "summary": "Order",
+    "loginPrompt": "Have an account? Sign in to use your saved addresses.",
+    "successTitle": "Order placed",
+    "successBody": "Thank you! We'll call you shortly to confirm your order.",
+    "orderCode": "Order code",
+    "successHint": "Keep your order code to track delivery status.",
+    "trackCta": "Track order",
+    "continue": "Continue shopping",
+    "honeypot": "Leave this field empty",
+    "itemsChanged": "Prices or stock have changed. Please review your cart."
+  },
+  "Track": {
+    "title": "Track your order",
+    "description": "Enter your order code and the phone number used at checkout.",
+    "code": "Order code",
+    "codePlaceholder": "e.g. LW-261006-4F7K",
+    "phone": "Phone number",
+    "submit": "Track",
+    "notFound": "No order found with those details.",
+    "status": "Status",
+    "placedAt": "Placed on",
+    "items": "Items",
+    "timeline": "Order history",
+    "shipTo": "Ship to",
+    "invalidCode": "Invalid order code."
+  },
+  "Status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "shipping": "Shipping",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
   }
 }

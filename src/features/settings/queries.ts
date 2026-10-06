@@ -1,5 +1,6 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
+import { CACHE_NS } from "@/lib/cache";
 import { DataError } from "@/lib/server-log";
 import { createPublicClient } from "@/lib/supabase/server";
 import type { Tables } from "@/types/database.types";
@@ -16,6 +17,6 @@ export const getSettings = unstable_cache(
     if (error) throw new DataError("settings", error);
     return data;
   },
-  ["settings"],
+  ["settings", CACHE_NS],
   { tags: ["settings"] },
 );

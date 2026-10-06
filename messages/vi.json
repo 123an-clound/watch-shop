@@ -161,7 +161,9 @@
     "summary": "Tóm tắt đơn hàng",
     "added": "Đã thêm vào giỏ hàng.",
     "updated": "Giỏ hàng đã được cập nhật theo giá và tồn kho mới nhất.",
-    "checking": "Đang kiểm tra giá và tồn kho…"
+    "checking": "Đang kiểm tra giá và tồn kho…",
+    "pageTitle": "Giỏ hàng của bạn",
+    "metaDescription": "Xem lại giỏ hàng trước khi thanh toán."
   },
   "Admin": {
     "title": "Quản trị",
@@ -498,5 +500,63 @@
       "hours": "Giờ mở cửa",
       "hoursValue": "9:00 – 21:00, tất cả các ngày trong tuần"
     }
+  },
+  "Checkout": {
+    "title": "Thanh toán",
+    "metaDescription": "Hoàn tất đơn hàng — thanh toán khi nhận hàng (COD).",
+    "contact": "Thông tin liên hệ",
+    "shipping": "Địa chỉ giao hàng",
+    "payment": "Phương thức thanh toán",
+    "cod": "Thanh toán khi nhận hàng (COD)",
+    "codHint": "Bạn thanh toán bằng tiền mặt cho nhân viên giao hàng sau khi kiểm tra sản phẩm.",
+    "name": "Họ và tên",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "emailHint": "Để nhận xác nhận đơn hàng qua email.",
+    "province": "Tỉnh / Thành phố",
+    "ward": "Phường / Xã",
+    "street": "Số nhà, tên đường",
+    "note": "Ghi chú cho đơn hàng",
+    "selectProvince": "Chọn tỉnh / thành phố",
+    "selectWard": "Chọn phường / xã",
+    "loadingUnits": "Đang tải danh sách địa chỉ…",
+    "savedAddress": "Địa chỉ đã lưu",
+    "useSavedAddress": "Dùng địa chỉ đã lưu",
+    "placeOrder": "Đặt hàng",
+    "placing": "Đang đặt hàng…",
+    "agree": "Bằng việc đặt hàng, bạn đồng ý với chính sách bảo hành và giao hàng của chúng tôi.",
+    "emptyCart": "Giỏ hàng trống — không thể thanh toán.",
+    "summary": "Đơn hàng",
+    "loginPrompt": "Đã có tài khoản? Đăng nhập để dùng địa chỉ đã lưu.",
+    "successTitle": "Đặt hàng thành công",
+    "successBody": "Cảm ơn bạn! Chúng tôi sẽ gọi điện xác nhận đơn hàng trong thời gian sớm nhất.",
+    "orderCode": "Mã đơn hàng",
+    "successHint": "Hãy lưu lại mã đơn hàng để tra cứu tình trạng giao hàng.",
+    "trackCta": "Tra cứu đơn hàng",
+    "continue": "Tiếp tục mua sắm",
+    "honeypot": "Để trống ô này",
+    "itemsChanged": "Giá hoặc tồn kho đã thay đổi. Vui lòng kiểm tra lại giỏ hàng."
+  },
+  "Track": {
+    "title": "Tra cứu đơn hàng",
+    "description": "Nhập mã đơn hàng và số điện thoại đặt hàng để xem tình trạng đơn.",
+    "code": "Mã đơn hàng",
+    "codePlaceholder": "VD: LW-261006-4F7K",
+    "phone": "Số điện thoại",
+    "submit": "Tra cứu",
+    "notFound": "Không tìm thấy đơn hàng với thông tin đã nhập.",
+    "status": "Trạng thái",
+    "placedAt": "Ngày đặt",
+    "items": "Sản phẩm",
+    "timeline": "Lịch sử đơn hàng",
+    "shipTo": "Giao đến",
+    "invalidCode": "Mã đơn hàng không hợp lệ."
+  },
+  "Status": {
+    "pending": "Chờ xác nhận",
+    "confirmed": "Đã xác nhận",
+    "shipping": "Đang giao",
+    "delivered": "Đã giao",
+    "cancelled": "Đã hủy"
   }
 }

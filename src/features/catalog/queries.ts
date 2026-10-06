@@ -1,6 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { unaccent } from "@/lib/search";
+import { CACHE_NS } from "@/lib/cache";
 import { DataError } from "@/lib/server-log";
 import { createPublicClient } from "@/lib/supabase/server";
 import type {
@@ -43,7 +44,7 @@ export const getCategories = unstable_cache(
     if (error) throw new DataError("categories", error);
     return data;
   },
-  ["categories"],
+  ["categories", CACHE_NS],
   { tags: ["categories"] },
 );
 
@@ -56,7 +57,7 @@ export const getBrands = unstable_cache(
     if (error) throw new DataError("brands", error);
     return data;
   },
-  ["brands"],
+  ["brands", CACHE_NS],
   { tags: ["brands"] },
 );
 
@@ -111,7 +112,7 @@ export const listProducts = unstable_cache(
       total: count ?? 0,
     };
   },
-  ["products-list"],
+  ["products-list", CACHE_NS],
   { tags: ["products"] },
 );
 
@@ -127,7 +128,7 @@ export const getFeaturedProducts = unstable_cache(
     if (error) throw new DataError("featured products", error);
     return (data as unknown as CardRow[]).map(toCard);
   },
-  ["products-featured"],
+  ["products-featured", CACHE_NS],
   { tags: ["products"] },
 );
 
@@ -143,7 +144,7 @@ export const getRelatedProducts = unstable_cache(
     if (error) throw new DataError("related products", error);
     return (data as unknown as CardRow[]).map(toCard);
   },
-  ["products-related"],
+  ["products-related", CACHE_NS],
   { tags: ["products"] },
 );
 
@@ -169,7 +170,7 @@ export const getProductBySlug = unstable_cache(
       images: [...row.images].sort((a, b) => a.sort_order - b.sort_order),
     };
   },
-  ["product-by-slug"],
+  ["product-by-slug", CACHE_NS],
   { tags: ["products"] },
 );
 
@@ -183,7 +184,7 @@ export const getProductSlugs = unstable_cache(
     if (error) throw new DataError("product slugs", error);
     return data;
   },
-  ["product-slugs"],
+  ["product-slugs", CACHE_NS],
   { tags: ["products"] },
 );
 
@@ -208,6 +209,6 @@ export const getFeatureFacets = unstable_cache(
       caseSize: [...caseSize].sort(byNumber),
     };
   },
-  ["feature-facets"],
+  ["feature-facets", CACHE_NS],
   { tags: ["products"] },
 );

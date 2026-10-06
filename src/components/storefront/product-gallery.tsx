@@ -24,7 +24,7 @@ export function ProductGallery({ images, name }: { images: GalleryImage[]; name:
 
   return (
     <div
-      className="grid gap-4 md:grid-cols-[72px_1fr] md:gap-5"
+      className={cn("grid gap-4 md:gap-5", images.length > 1 && "md:grid-cols-[72px_1fr]")}
       aria-label={t("gallery")}
       role="region"
     >
