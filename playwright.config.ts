@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -5,11 +6,21 @@ import { defineConfig, devices } from "@playwright/test";
  * The web server is built with local env so NEXT_PUBLIC_* values are inlined correctly.
  */
 const PORT = 3200;
-export const LOCAL_SUPABASE = {
-  url: "http://127.0.0.1:56321",
-  publishableKey: "sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH",
-  secretKey: "LOCAL_SUPABASE_SECRET_FROM_STATUS",
-};
+/** Keys come from the running local stack — nothing secret is committed. */
+function localSupabase() {
+  const status = JSON.parse(
+    execSync("npx supabase status -o json", {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }),
+  ) as { API_URL: string; PUBLISHABLE_KEY: string; SECRET_KEY: string };
+  return {
+    url: status.API_URL,
+    publishableKey: status.PUBLISHABLE_KEY,
+    secretKey: status.SECRET_KEY,
+  };
+}
+export const LOCAL_SUPABASE = localSupabase();
 
 export default defineConfig({
   testDir: "tests/e2e",
