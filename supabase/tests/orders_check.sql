@@ -15,10 +15,10 @@ declare
   i int;
 begin
   select id, stock, price into v_pid, v_stock, v_price
-  from public.products where slug = 'seiko-5-sports-field';
+  from public.lw_products where slug = 'seiko-5-sports-field';
 
   -- 1. Happy path: client price is ignored, stock decremented, free shipping applied.
-  v_code := public.place_order(jsonb_build_object(
+  v_code := public.lw_place_order(jsonb_build_object(
     'customer_name', 'Nguyễn Văn A',
     'customer_phone', '+84901234567',
     'locale', 'vi',
@@ -31,23 +31,23 @@ begin
   ));
   assert v_code ~ '^LW-[0-9]{6}-[A-Z0-9]{4}$', 'order code format: ' || v_code;
 
-  select * into v_order from public.orders where order_code = v_code;
+  select * into v_order from public.lw_orders where order_code = v_code;
   assert v_order.customer_phone = '0901234567', 'phone normalized';
   assert v_order.subtotal = v_price * 2, 'subtotal from DB price';
   assert v_order.shipping_fee = 0, 'free shipping above threshold';
   assert v_order.total = v_order.subtotal, 'total';
-  assert (select stock from public.products where id = v_pid) = v_stock - 2, 'stock decremented';
-  assert (select count(*) from public.order_items where order_id = v_order.id) = 1, 'duplicate lines merged';
-  assert (select count(*) from public.order_status_history where order_id = v_order.id) = 1, 'history written';
+  assert (select stock from public.lw_products where id = v_pid) = v_stock - 2, 'stock decremented';
+  assert (select count(*) from public.lw_order_items where order_id = v_order.id) = 1, 'duplicate lines merged';
+  assert (select count(*) from public.lw_order_status_history where order_id = v_order.id) = 1, 'history written';
 
   -- 2. Guest lookup.
-  assert public.get_order_by_code(lower(v_code), '0901234567') ->> 'status' = 'pending', 'lookup by code+phone';
-  assert public.get_order_by_code(v_code, '0909999999') is null, 'wrong phone → null';
+  assert public.lw_get_order_by_code(lower(v_code), '0901234567') ->> 'status' = 'pending', 'lookup by code+phone';
+  assert public.lw_get_order_by_code(v_code, '0909999999') is null, 'wrong phone → null';
 
   -- 3. Out of stock.
   v_failed := false;
   begin
-    perform public.place_order(jsonb_build_object(
+    perform public.lw_place_order(jsonb_build_object(
       'customer_name', 'B', 'customer_phone', '0912345678',
       'shipping_address', jsonb_build_object('province', 'Hà Nội', 'ward', 'Phường Hoàn Kiếm', 'street', '2 Tràng Tiền'),
       'items', jsonb_build_array(jsonb_build_object('product_id', v_pid, 'quantity', 99))
@@ -58,14 +58,14 @@ begin
   assert v_failed, 'OUT_OF_STOCK raised';
 
   -- 4. Inactive product.
-  update public.products set is_active = false where slug = 'tissot-everytime-lady';
+  update public.lw_products set is_active = false where slug = 'tissot-everytime-lady';
   v_failed := false;
   begin
-    perform public.place_order(jsonb_build_object(
+    perform public.lw_place_order(jsonb_build_object(
       'customer_name', 'C', 'customer_phone', '0912345679',
       'shipping_address', jsonb_build_object('province', 'Hà Nội', 'ward', 'Phường Hoàn Kiếm', 'street', '3 Tràng Tiền'),
       'items', jsonb_build_array(jsonb_build_object(
-        'product_id', (select id from public.products where slug = 'tissot-everytime-lady'), 'quantity', 1))
+        'product_id', (select id from public.lw_products where slug = 'tissot-everytime-lady'), 'quantity', 1))
     ));
   exception when others then
     v_failed := sqlerrm = 'PRODUCT_UNAVAILABLE';
@@ -75,7 +75,7 @@ begin
   -- 5. Invalid phone.
   v_failed := false;
   begin
-    perform public.place_order(jsonb_build_object(
+    perform public.lw_place_order(jsonb_build_object(
       'customer_name', 'D', 'customer_phone', '0123',
       'shipping_address', jsonb_build_object('province', 'x', 'ward', 'y', 'street', 'z'),
       'items', jsonb_build_array(jsonb_build_object('product_id', v_pid, 'quantity', 1))
@@ -87,7 +87,7 @@ begin
 
   -- 6. Rate limit: 5 orders / 10 min per phone (1 already placed above).
   for i in 1..4 loop
-    perform public.place_order(jsonb_build_object(
+    perform public.lw_place_order(jsonb_build_object(
       'customer_name', 'A', 'customer_phone', '0901234567',
       'shipping_address', jsonb_build_object('province', 'x', 'ward', 'y', 'street', 'z'),
       'items', jsonb_build_array(jsonb_build_object('product_id', v_pid, 'quantity', 1))
@@ -95,7 +95,7 @@ begin
   end loop;
   v_failed := false;
   begin
-    perform public.place_order(jsonb_build_object(
+    perform public.lw_place_order(jsonb_build_object(
       'customer_name', 'A', 'customer_phone', '0901234567',
       'shipping_address', jsonb_build_object('province', 'x', 'ward', 'y', 'street', 'z'),
       'items', jsonb_build_array(jsonb_build_object('product_id', v_pid, 'quantity', 1))
@@ -111,26 +111,26 @@ begin
 
   v_failed := false;
   begin
-    perform public.cancel_order(v_order.id, 'test');
+    perform public.lw_cancel_order(v_order.id, 'test');
   exception when others then
     v_failed := sqlerrm = 'FORBIDDEN';
   end;
   assert v_failed, 'non-admin cannot cancel';
 
-  update public.profiles set role = 'admin' where id = v_admin;
-  v_stock := (select stock from public.products where id = v_pid);
-  perform public.update_order_status(v_order.id, 'confirmed');
+  update public.lw_profiles set role = 'admin' where id = v_admin;
+  v_stock := (select stock from public.lw_products where id = v_pid);
+  perform public.lw_update_order_status(v_order.id, 'confirmed');
   v_failed := false;
   begin
-    perform public.update_order_status(v_order.id, 'delivered');
+    perform public.lw_update_order_status(v_order.id, 'delivered');
   exception when others then
     v_failed := sqlerrm = 'INVALID_TRANSITION';
   end;
   assert v_failed, 'confirmed → delivered rejected';
-  perform public.cancel_order(v_order.id, 'customer request');
-  assert (select status from public.orders where id = v_order.id) = 'cancelled', 'cancelled';
-  assert (select stock from public.products where id = v_pid) = v_stock + 2, 'stock restored';
-  assert (select count(*) from public.order_status_history where order_id = v_order.id) = 3, 'history rows';
+  perform public.lw_cancel_order(v_order.id, 'customer request');
+  assert (select status from public.lw_orders where id = v_order.id) = 'cancelled', 'cancelled';
+  assert (select stock from public.lw_products where id = v_pid) = v_stock + 2, 'stock restored';
+  assert (select count(*) from public.lw_order_status_history where order_id = v_order.id) = 3, 'history rows';
 
   raise notice 'orders_check: function checks passed';
 end;
@@ -141,15 +141,15 @@ select set_config('request.jwt.claims', '', true);
 set local role anon;
 do $$
 begin
-  assert (select count(*) from public.products where not is_active) = 0, 'anon sees no inactive products';
-  assert (select count(*) from public.products) > 0, 'anon sees active products';
+  assert (select count(*) from public.lw_products where not is_active) = 0, 'anon sees no inactive products';
+  assert (select count(*) from public.lw_products) > 0, 'anon sees active products';
   begin
-    perform 1 from public.orders;
+    perform 1 from public.lw_orders;
     assert false, 'anon must not read orders';
   exception when insufficient_privilege then null;
   end;
   begin
-    perform public.place_order('{}'::jsonb);
+    perform public.lw_place_order('{}'::jsonb);
     assert false, 'anon must not call place_order';
   exception when insufficient_privilege then null;
   end;
@@ -167,13 +167,13 @@ begin
   perform set_config('request.jwt.claims', json_build_object('sub', v_user, 'role', 'authenticated')::text, true);
   set local role authenticated;
   begin
-    update public.profiles set role = 'admin' where id = v_user;
+    update public.lw_profiles set role = 'admin' where id = v_user;
     assert false, 'customer must not update role';
   exception when insufficient_privilege then null;
   end;
-  update public.profiles set full_name = 'Khách hàng' where id = v_user;
+  update public.lw_profiles set full_name = 'Khách hàng' where id = v_user;
   reset role;
-  assert (select full_name from public.profiles where id = v_user) = 'Khách hàng', 'customer updates own name';
+  assert (select full_name from public.lw_profiles where id = v_user) = 'Khách hàng', 'customer updates own name';
   raise notice 'orders_check: profile privilege checks passed';
 end;
 $$;

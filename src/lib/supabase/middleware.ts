@@ -40,7 +40,7 @@ export async function updateSession(
   let isAdmin = false;
   if (checkAdmin && userId) {
     const { data: profile } = await supabase
-      .from("profiles")
+      .from("lw_profiles")
       .select("role")
       .eq("id", userId)
       .maybeSingle();

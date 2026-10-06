@@ -16,7 +16,7 @@
 -- Errors (message): INVALID_NAME | INVALID_PHONE | INVALID_EMAIL | INVALID_ADDRESS |
 --   INVALID_ITEMS | RATE_LIMITED | PRODUCT_UNAVAILABLE | OUT_OF_STOCK (detail = product_id)
 -- ---------------------------------------------------------------------
-create or replace function public.place_order(payload jsonb)
+create or replace function public.lw_place_order(payload jsonb)
 returns text
 language plpgsql
 security definer
@@ -93,21 +93,21 @@ begin
     v_ip_hash := encode(extensions.digest(payload ->> 'ip', 'sha256'), 'hex');
   end if;
 
-  delete from public.checkout_attempts where created_at < now() - interval '1 day';
+  delete from public.lw_checkout_attempts where created_at < now() - interval '1 day';
 
   select count(*) into v_attempts
-  from public.checkout_attempts
+  from public.lw_checkout_attempts
   where created_at > now() - interval '10 minutes'
     and (phone = v_phone or (v_ip_hash is not null and ip_hash = v_ip_hash));
   if v_attempts >= 5 then
     raise exception 'RATE_LIMITED';
   end if;
 
-  insert into public.checkout_attempts (ip_hash, phone) values (v_ip_hash, v_phone);
+  insert into public.lw_checkout_attempts (ip_hash, phone) values (v_ip_hash, v_phone);
 
   -- 3. Lock product rows (consistent order avoids deadlocks) --------------
   perform 1
-  from public.products p
+  from public.lw_products p
   where p.id in (select r.product_id from jsonb_to_recordset(v_items) r(product_id uuid, quantity int))
   order by p.id
   for update;
@@ -115,7 +115,7 @@ begin
   -- 4. Validate availability + stock ------------------------------------
   select r.product_id into v_bad
   from jsonb_to_recordset(v_items) r(product_id uuid, quantity int)
-  left join public.products p on p.id = r.product_id
+  left join public.lw_products p on p.id = r.product_id
   where p.id is null or not p.is_active
   limit 1;
   if v_bad is not null then
@@ -124,7 +124,7 @@ begin
 
   select r.product_id into v_bad
   from jsonb_to_recordset(v_items) r(product_id uuid, quantity int)
-  join public.products p on p.id = r.product_id
+  join public.lw_products p on p.id = r.product_id
   where p.stock < r.quantity
   limit 1;
   if v_bad is not null then
@@ -134,10 +134,10 @@ begin
   -- 5. Totals from DB prices --------------------------------------------
   select sum(p.price * r.quantity) into v_subtotal
   from jsonb_to_recordset(v_items) r(product_id uuid, quantity int)
-  join public.products p on p.id = r.product_id;
+  join public.lw_products p on p.id = r.product_id;
 
   select s.shipping_fee, s.free_shipping_threshold into v_fee, v_threshold
-  from public.site_settings s where s.id = 1;
+  from public.lw_site_settings s where s.id = 1;
   v_fee := case when v_subtotal >= coalesce(v_threshold, 0) then 0 else coalesce(v_fee, 0) end;
 
   -- 6. Human-readable unique code: LW-YYMMDD-XXXX ------------------------
@@ -145,11 +145,11 @@ begin
     v_code := 'LW-' || to_char(now() at time zone 'Asia/Ho_Chi_Minh', 'YYMMDD') || '-' ||
       (select string_agg(substr(v_alphabet, 1 + floor(random() * length(v_alphabet))::int, 1), '')
        from generate_series(1, 4));
-    exit when not exists (select 1 from public.orders o where o.order_code = v_code);
+    exit when not exists (select 1 from public.lw_orders o where o.order_code = v_code);
   end loop;
 
   -- 7. Write order, items, stock, history --------------------------------
-  insert into public.orders (
+  insert into public.lw_orders (
     order_code, user_id, customer_name, customer_phone, customer_email,
     shipping_address, subtotal, shipping_fee, total, payment_method, status, locale
   ) values (
@@ -158,25 +158,25 @@ begin
   )
   returning id into v_order_id;
 
-  insert into public.order_items (order_id, product_id, product_name, sku, image_path, unit_price, quantity)
+  insert into public.lw_order_items (order_id, product_id, product_name, sku, image_path, unit_price, quantity)
   select
     v_order_id,
     p.id,
     case when v_locale = 'en' then p.name_en else p.name_vi end,
     p.sku,
-    (select pi.storage_path from public.product_images pi
+    (select pi.storage_path from public.lw_product_images pi
      where pi.product_id = p.id order by pi.sort_order, pi.created_at limit 1),
     p.price,
     r.quantity
   from jsonb_to_recordset(v_items) r(product_id uuid, quantity int)
-  join public.products p on p.id = r.product_id;
+  join public.lw_products p on p.id = r.product_id;
 
-  update public.products p
+  update public.lw_products p
   set stock = p.stock - r.quantity
   from jsonb_to_recordset(v_items) r(product_id uuid, quantity int)
   where p.id = r.product_id;
 
-  insert into public.order_status_history (order_id, from_status, to_status, changed_by)
+  insert into public.lw_order_status_history (order_id, from_status, to_status, changed_by)
   values (v_order_id, null, 'pending', v_user_id);
 
   return v_code;
@@ -186,7 +186,7 @@ $$;
 -- ---------------------------------------------------------------------
 -- cancel_order: admin only; restores stock.
 -- ---------------------------------------------------------------------
-create or replace function public.cancel_order(p_order_id uuid, p_note text default null)
+create or replace function public.lw_cancel_order(p_order_id uuid, p_note text default null)
 returns void
 language plpgsql
 security definer
@@ -195,11 +195,11 @@ as $$
 declare
   v_status text;
 begin
-  if not public.is_admin() then
+  if not public.lw_is_admin() then
     raise exception 'FORBIDDEN';
   end if;
 
-  select o.status into v_status from public.orders o where o.id = p_order_id for update;
+  select o.status into v_status from public.lw_orders o where o.id = p_order_id for update;
   if not found then
     raise exception 'NOT_FOUND';
   end if;
@@ -207,19 +207,19 @@ begin
     raise exception 'INVALID_TRANSITION';
   end if;
 
-  update public.products p
+  update public.lw_products p
   set stock = p.stock + oi.quantity
   from (
     select product_id, sum(quantity) as quantity
-    from public.order_items
+    from public.lw_order_items
     where order_id = p_order_id and product_id is not null
     group by product_id
   ) oi
   where p.id = oi.product_id;
 
-  update public.orders set status = 'cancelled' where id = p_order_id;
+  update public.lw_orders set status = 'cancelled' where id = p_order_id;
 
-  insert into public.order_status_history (order_id, from_status, to_status, changed_by, note)
+  insert into public.lw_order_status_history (order_id, from_status, to_status, changed_by, note)
   values (p_order_id, v_status, 'cancelled', (select auth.uid()), left(p_note, 500));
 end;
 $$;
@@ -228,7 +228,7 @@ $$;
 -- update_order_status: admin only; validated transitions + history.
 -- pending → confirmed → shipping → delivered; any non-final → cancelled.
 -- ---------------------------------------------------------------------
-create or replace function public.update_order_status(
+create or replace function public.lw_update_order_status(
   p_order_id uuid,
   p_to_status text,
   p_note text default null
@@ -241,16 +241,16 @@ as $$
 declare
   v_status text;
 begin
-  if not public.is_admin() then
+  if not public.lw_is_admin() then
     raise exception 'FORBIDDEN';
   end if;
 
   if p_to_status = 'cancelled' then
-    perform public.cancel_order(p_order_id, p_note);
+    perform public.lw_cancel_order(p_order_id, p_note);
     return;
   end if;
 
-  select o.status into v_status from public.orders o where o.id = p_order_id for update;
+  select o.status into v_status from public.lw_orders o where o.id = p_order_id for update;
   if not found then
     raise exception 'NOT_FOUND';
   end if;
@@ -263,9 +263,9 @@ begin
     raise exception 'INVALID_TRANSITION';
   end if;
 
-  update public.orders set status = p_to_status where id = p_order_id;
+  update public.lw_orders set status = p_to_status where id = p_order_id;
 
-  insert into public.order_status_history (order_id, from_status, to_status, changed_by, note)
+  insert into public.lw_order_status_history (order_id, from_status, to_status, changed_by, note)
   values (p_order_id, v_status, p_to_status, (select auth.uid()), left(p_note, 500));
 end;
 $$;
@@ -274,7 +274,7 @@ $$;
 -- get_order_by_code: guest order tracking (order_code + phone).
 -- Service-role only; the Server Action rate-limits callers.
 -- ---------------------------------------------------------------------
-create or replace function public.get_order_by_code(p_code text, p_phone text)
+create or replace function public.lw_get_order_by_code(p_code text, p_phone text)
 returns jsonb
 language sql
 stable
@@ -299,17 +299,17 @@ as $$
         'unit_price', oi.unit_price,
         'quantity', oi.quantity
       ) order by oi.created_at), '[]'::jsonb)
-      from public.order_items oi where oi.order_id = o.id
+      from public.lw_order_items oi where oi.order_id = o.id
     ),
     'history', (
       select coalesce(jsonb_agg(jsonb_build_object(
         'to_status', h.to_status,
         'created_at', h.created_at
       ) order by h.created_at), '[]'::jsonb)
-      from public.order_status_history h where h.order_id = o.id
+      from public.lw_order_status_history h where h.order_id = o.id
     )
   )
-  from public.orders o
+  from public.lw_orders o
   where o.order_code = upper(btrim(p_code))
     and o.customer_phone = regexp_replace(btrim(p_phone), '^\+84', '0')
 $$;
@@ -317,15 +317,15 @@ $$;
 -- ---------------------------------------------------------------------
 -- Privileges
 -- ---------------------------------------------------------------------
-revoke execute on function public.place_order(jsonb) from public, anon, authenticated;
-revoke execute on function public.get_order_by_code(text, text) from public, anon, authenticated;
-grant execute on function public.place_order(jsonb) to service_role;
-grant execute on function public.get_order_by_code(text, text) to service_role;
+revoke execute on function public.lw_place_order(jsonb) from public, anon, authenticated;
+revoke execute on function public.lw_get_order_by_code(text, text) from public, anon, authenticated;
+grant execute on function public.lw_place_order(jsonb) to service_role;
+grant execute on function public.lw_get_order_by_code(text, text) to service_role;
 
-revoke execute on function public.cancel_order(uuid, text) from public, anon;
-revoke execute on function public.update_order_status(uuid, text, text) from public, anon;
-grant execute on function public.cancel_order(uuid, text) to authenticated;
-grant execute on function public.update_order_status(uuid, text, text) to authenticated;
+revoke execute on function public.lw_cancel_order(uuid, text) from public, anon;
+revoke execute on function public.lw_update_order_status(uuid, text, text) from public, anon;
+grant execute on function public.lw_cancel_order(uuid, text) to authenticated;
+grant execute on function public.lw_update_order_status(uuid, text, text) to authenticated;
 
 -- Realtime: admin dashboard listens for new orders (RLS limits delivery to admins).
-alter publication supabase_realtime add table public.orders;
+alter publication supabase_realtime add table public.lw_orders;

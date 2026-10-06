@@ -5,7 +5,7 @@ export type Database = {
   
   "public": {
           Tables: {
-            "addresses": {
+            "lw_addresses": {
                   Row: {
                     "created_at": string,"id": string,"is_default": boolean,"note": string | null,"phone": string,"province": string,"recipient_name": string,"street": string,"updated_at": string,"user_id": string,"ward": string
                   }
@@ -18,7 +18,7 @@ export type Database = {
                   Relationships: [
                     
                   ]
-                },"brands": {
+                },"lw_brands": {
                   Row: {
                     "created_at": string,"description_en": string | null,"description_vi": string | null,"id": string,"logo_url": string | null,"name": string,"slug": string,"updated_at": string
                   }
@@ -31,7 +31,7 @@ export type Database = {
                   Relationships: [
                     
                   ]
-                },"categories": {
+                },"lw_categories": {
                   Row: {
                     "created_at": string,"id": string,"name_en": string,"name_vi": string,"parent_id": string | null,"slug": string,"sort_order": number,"updated_at": string
                   }
@@ -43,14 +43,14 @@ export type Database = {
                   }
                   Relationships: [
                     {
-      foreignKeyName: "categories_parent_id_fkey"
+      foreignKeyName: "lw_categories_parent_id_fkey"
       columns: ["parent_id"]
 isOneToOne: false
-      referencedRelation: "categories"
+      referencedRelation: "lw_categories"
       referencedColumns: ["id"]
     }
                   ]
-                },"checkout_attempts": {
+                },"lw_checkout_attempts": {
                   Row: {
                     "created_at": string,"id": number,"ip_hash": string | null,"phone": string,"updated_at": string
                   }
@@ -63,7 +63,7 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
-                },"order_items": {
+                },"lw_order_items": {
                   Row: {
                     "created_at": string,"id": string,"image_path": string | null,"order_id": string,"product_id": string | null,"product_name": string,"quantity": number,"sku": string,"unit_price": number,"updated_at": string
                   }
@@ -75,20 +75,20 @@ isOneToOne: false
                   }
                   Relationships: [
                     {
-      foreignKeyName: "order_items_order_id_fkey"
+      foreignKeyName: "lw_order_items_order_id_fkey"
       columns: ["order_id"]
 isOneToOne: false
-      referencedRelation: "orders"
+      referencedRelation: "lw_orders"
       referencedColumns: ["id"]
     },{
-      foreignKeyName: "order_items_product_id_fkey"
+      foreignKeyName: "lw_order_items_product_id_fkey"
       columns: ["product_id"]
 isOneToOne: false
-      referencedRelation: "products"
+      referencedRelation: "lw_products"
       referencedColumns: ["id"]
     }
                   ]
-                },"order_status_history": {
+                },"lw_order_status_history": {
                   Row: {
                     "changed_by": string | null,"created_at": string,"from_status": string | null,"id": number,"note": string | null,"order_id": string,"to_status": string,"updated_at": string
                   }
@@ -100,14 +100,14 @@ isOneToOne: false
                   }
                   Relationships: [
                     {
-      foreignKeyName: "order_status_history_order_id_fkey"
+      foreignKeyName: "lw_order_status_history_order_id_fkey"
       columns: ["order_id"]
 isOneToOne: false
-      referencedRelation: "orders"
+      referencedRelation: "lw_orders"
       referencedColumns: ["id"]
     }
                   ]
-                },"orders": {
+                },"lw_orders": {
                   Row: {
                     "created_at": string,"customer_email": string | null,"customer_name": string,"customer_phone": string,"id": string,"locale": string,"order_code": string,"payment_method": string,"shipping_address": NonNullable<Json>,"shipping_fee": number,"status": string,"subtotal": number,"total": number,"updated_at": string,"user_id": string | null
                   }
@@ -120,7 +120,7 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
-                },"product_images": {
+                },"lw_product_images": {
                   Row: {
                     "alt_en": string | null,"alt_vi": string | null,"created_at": string,"height": number,"id": string,"product_id": string,"sort_order": number,"storage_path": string,"updated_at": string,"width": number
                   }
@@ -132,14 +132,14 @@ isOneToOne: false
                   }
                   Relationships: [
                     {
-      foreignKeyName: "product_images_product_id_fkey"
+      foreignKeyName: "lw_product_images_product_id_fkey"
       columns: ["product_id"]
 isOneToOne: false
-      referencedRelation: "products"
+      referencedRelation: "lw_products"
       referencedColumns: ["id"]
     }
                   ]
-                },"products": {
+                },"lw_products": {
                   Row: {
                     "brand_id": string | null,"category_id": string | null,"compare_at_price": number | null,"created_at": string,"description_en": string | null,"description_vi": string | null,"features": NonNullable<Json>,"id": string,"is_active": boolean,"is_featured": boolean,"name_en": string,"name_vi": string,"price": number,"search_vector": unknown,"seo_description_en": string | null,"seo_description_vi": string | null,"seo_title_en": string | null,"seo_title_vi": string | null,"sku": string,"slug": string,"stock": number,"updated_at": string
                   }
@@ -151,20 +151,20 @@ isOneToOne: false
                   }
                   Relationships: [
                     {
-      foreignKeyName: "products_brand_id_fkey"
+      foreignKeyName: "lw_products_brand_id_fkey"
       columns: ["brand_id"]
 isOneToOne: false
-      referencedRelation: "brands"
+      referencedRelation: "lw_brands"
       referencedColumns: ["id"]
     },{
-      foreignKeyName: "products_category_id_fkey"
+      foreignKeyName: "lw_products_category_id_fkey"
       columns: ["category_id"]
 isOneToOne: false
-      referencedRelation: "categories"
+      referencedRelation: "lw_categories"
       referencedColumns: ["id"]
     }
                   ]
-                },"profiles": {
+                },"lw_profiles": {
                   Row: {
                     "created_at": string,"full_name": string | null,"id": string,"phone": string | null,"role": string,"updated_at": string
                   }
@@ -177,7 +177,7 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
-                },"site_settings": {
+                },"lw_site_settings": {
                   Row: {
                     "address": string | null,"contact_email": string | null,"contact_phone": string | null,"created_at": string,"free_shipping_threshold": number,"hero_image_path": string | null,"hero_subtitle_en": string | null,"hero_subtitle_vi": string | null,"hero_title_en": string | null,"hero_title_vi": string | null,"id": number,"shipping_fee": number,"social_links": NonNullable<Json>,"store_name": string,"updated_at": string
                   }
@@ -190,7 +190,7 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
-                },"wishlists": {
+                },"lw_wishlists": {
                   Row: {
                     "created_at": string,"product_id": string,"updated_at": string,"user_id": string
                   }
@@ -202,10 +202,10 @@ isOneToOne: false
                   }
                   Relationships: [
                     {
-      foreignKeyName: "wishlists_product_id_fkey"
+      foreignKeyName: "lw_wishlists_product_id_fkey"
       columns: ["product_id"]
 isOneToOne: false
-      referencedRelation: "products"
+      referencedRelation: "lw_products"
       referencedColumns: ["id"]
     }
                   ]
@@ -215,22 +215,22 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "cancel_order":
+            "lw_cancel_order":
 { Args: { "p_note"?: string,"p_order_id": string }; Returns: undefined
                            },
-"get_order_by_code":
+"lw_get_order_by_code":
 { Args: { "p_code": string,"p_phone": string }; Returns: Json
                            },
-"immutable_unaccent":
+"lw_immutable_unaccent":
 { Args: { "": string }; Returns: string
                            },
-"is_admin":
+"lw_is_admin":
 { Args: Record<PropertyKey, never>; Returns: boolean
                            },
-"place_order":
+"lw_place_order":
 { Args: { "payload": Json }; Returns: string
                            },
-"update_order_status":
+"lw_update_order_status":
 { Args: { "p_note"?: string,"p_order_id": string,"p_to_status": string }; Returns: undefined
                            }
           }

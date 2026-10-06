@@ -27,7 +27,7 @@ Reset the local DB (re-runs migrations + seed): `npx supabase db reset`.
 Sign up normally, then run in the SQL editor (or `psql`):
 
 ```sql
-update public.profiles
+update public.lw_profiles
 set role = 'admin'
 where id = (select id from auth.users where email = 'you@example.com');
 ```

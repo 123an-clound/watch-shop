@@ -3,7 +3,7 @@
 -- storage_path); replace via the admin panel with real product photos.
 -- =====================================================================
 
-insert into public.site_settings (
+insert into public.lw_site_settings (
   id, store_name, hero_image_path, hero_title_vi, hero_title_en,
   hero_subtitle_vi, hero_subtitle_en, contact_email, contact_phone, address,
   social_links, shipping_fee, free_shipping_threshold
@@ -19,14 +19,14 @@ insert into public.site_settings (
   30000, 5000000
 ) on conflict (id) do nothing;
 
-insert into public.categories (slug, name_vi, name_en, sort_order) values
+insert into public.lw_categories (slug, name_vi, name_en, sort_order) values
   ('dong-ho-nam', 'Đồng hồ nam', 'Men''s watches', 1),
   ('dong-ho-nu', 'Đồng hồ nữ', 'Women''s watches', 2),
   ('dong-ho-the-thao', 'Thể thao & lặn', 'Sport & dive', 3),
   ('dong-ho-co-dien', 'Cổ điển & dress', 'Classic & dress', 4)
 on conflict (slug) do nothing;
 
-insert into public.brands (slug, name, description_vi, description_en) values
+insert into public.lw_brands (slug, name, description_vi, description_en) values
   ('rolex', 'Rolex',
    'Biểu tượng của sự chính xác và đẳng cấp từ Genève, Thụy Sĩ, từ năm 1905.',
    'The Geneva icon of precision and prestige since 1905.'),
@@ -150,7 +150,7 @@ with data (slug, sku, name_vi, name_en, description_vi, description_en, price, c
    118000000, 129000000, 0, 'dong-ho-nam', 'tag-heuer',
    '{"movement":"Automatic","case_size":"42mm","case_material":"Stainless steel","water_resistance":"100m","crystal":"Sapphire","strap_material":"Leather"}', false)
 )
-insert into public.products (
+insert into public.lw_products (
   slug, sku, name_vi, name_en, description_vi, description_en, price, compare_at_price,
   stock, category_id, brand_id, features, is_featured, is_active,
   seo_title_vi, seo_title_en, seo_description_vi, seo_description_en
@@ -161,8 +161,8 @@ select
   d.name_vi || ' chính hãng', d.name_en || ' — authentic',
   left(d.description_vi, 300), left(d.description_en, 300)
 from data d
-join public.categories c on c.slug = d.category_slug
-join public.brands b on b.slug = d.brand_slug
+join public.lw_categories c on c.slug = d.category_slug
+join public.lw_brands b on b.slug = d.brand_slug
 on conflict (slug) do nothing;
 
 -- ---------------------------------------------------------------------
@@ -189,7 +189,7 @@ with img (product_slug, photo_id, sort_order) as (
   ('tag-heuer-carrera-chronograph', '1609587312208-cea54be969e7', 0),
   ('tag-heuer-autavia-chronograph', '1539874754764-5a96559165b0', 0)
 )
-insert into public.product_images (product_id, storage_path, alt_vi, alt_en, sort_order, width, height)
+insert into public.lw_product_images (product_id, storage_path, alt_vi, alt_en, sort_order, width, height)
 select
   p.id,
   'https://images.unsplash.com/photo-' || i.photo_id || '?w=1200&h=1500&fit=crop&q=80&auto=format',
@@ -199,7 +199,7 @@ select
   1200,
   1500
 from img i
-join public.products p on p.slug = i.product_slug
+join public.lw_products p on p.slug = i.product_slug
 where not exists (
-  select 1 from public.product_images x where x.product_id = p.id and x.sort_order = i.sort_order
+  select 1 from public.lw_product_images x where x.product_id = p.id and x.sort_order = i.sort_order
 );

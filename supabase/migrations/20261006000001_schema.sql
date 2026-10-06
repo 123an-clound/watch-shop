@@ -11,7 +11,7 @@ create extension if not exists pgcrypto with schema extensions;
 
 -- Immutable unaccent wrapper so it can be used in generated columns / indexes.
 -- Lets customers search "dong ho" and match "đồng hồ".
-create or replace function public.immutable_unaccent(text)
+create or replace function public.lw_immutable_unaccent(text)
 returns text
 language sql
 immutable
@@ -22,7 +22,7 @@ as $$
   select extensions.unaccent('extensions.unaccent'::regdictionary, $1)
 $$;
 
-create or replace function public.set_updated_at()
+create or replace function public.lw_set_updated_at()
 returns trigger
 language plpgsql
 set search_path = ''
@@ -36,7 +36,7 @@ $$;
 -- ---------------------------------------------------------------------
 -- profiles
 -- ---------------------------------------------------------------------
-create table public.profiles (
+create table public.lw_profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   full_name text check (char_length(full_name) <= 120),
   phone text check (phone ~ '^(0|\+84)(3|5|7|8|9)[0-9]{8}$'),
@@ -48,18 +48,18 @@ create table public.profiles (
 -- ---------------------------------------------------------------------
 -- catalog
 -- ---------------------------------------------------------------------
-create table public.categories (
+create table public.lw_categories (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
   name_vi text not null check (char_length(name_vi) between 1 and 120),
   name_en text not null check (char_length(name_en) between 1 and 120),
-  parent_id uuid references public.categories (id) on delete set null,
+  parent_id uuid references public.lw_categories (id) on delete set null,
   sort_order int not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-create table public.brands (
+create table public.lw_brands (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
   name text not null check (char_length(name) between 1 and 120),
@@ -70,7 +70,7 @@ create table public.brands (
   updated_at timestamptz not null default now()
 );
 
-create table public.products (
+create table public.lw_products (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
   sku text not null unique check (char_length(sku) between 1 and 64),
@@ -81,8 +81,8 @@ create table public.products (
   price bigint not null check (price >= 0),
   compare_at_price bigint check (compare_at_price is null or compare_at_price > price),
   stock int not null default 0 check (stock >= 0),
-  category_id uuid references public.categories (id) on delete set null,
-  brand_id uuid references public.brands (id) on delete set null,
+  category_id uuid references public.lw_categories (id) on delete set null,
+  brand_id uuid references public.lw_brands (id) on delete set null,
   features jsonb not null default '{}'::jsonb check (jsonb_typeof(features) = 'object'),
   is_featured boolean not null default false,
   is_active boolean not null default true,
@@ -91,19 +91,19 @@ create table public.products (
   seo_description_vi text check (char_length(seo_description_vi) <= 320),
   seo_description_en text check (char_length(seo_description_en) <= 320),
   search_vector tsvector generated always as (
-    setweight(to_tsvector('simple', public.immutable_unaccent(coalesce(name_vi, ''))), 'A') ||
-    setweight(to_tsvector('simple', public.immutable_unaccent(coalesce(name_en, ''))), 'A') ||
+    setweight(to_tsvector('simple', public.lw_immutable_unaccent(coalesce(name_vi, ''))), 'A') ||
+    setweight(to_tsvector('simple', public.lw_immutable_unaccent(coalesce(name_en, ''))), 'A') ||
     setweight(to_tsvector('simple', coalesce(sku, '')), 'A') ||
-    setweight(to_tsvector('simple', public.immutable_unaccent(coalesce(description_vi, ''))), 'C') ||
-    setweight(to_tsvector('simple', public.immutable_unaccent(coalesce(description_en, ''))), 'C')
+    setweight(to_tsvector('simple', public.lw_immutable_unaccent(coalesce(description_vi, ''))), 'C') ||
+    setweight(to_tsvector('simple', public.lw_immutable_unaccent(coalesce(description_en, ''))), 'C')
   ) stored,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-create table public.product_images (
+create table public.lw_product_images (
   id uuid primary key default gen_random_uuid(),
-  product_id uuid not null references public.products (id) on delete cascade,
+  product_id uuid not null references public.lw_products (id) on delete cascade,
   storage_path text not null check (char_length(storage_path) between 1 and 500),
   alt_vi text check (char_length(alt_vi) <= 200),
   alt_en text check (char_length(alt_en) <= 200),
@@ -117,7 +117,7 @@ create table public.product_images (
 -- ---------------------------------------------------------------------
 -- orders
 -- ---------------------------------------------------------------------
-create table public.orders (
+create table public.lw_orders (
   id uuid primary key default gen_random_uuid(),
   order_code text not null unique,
   user_id uuid references auth.users (id) on delete set null,
@@ -136,10 +136,10 @@ create table public.orders (
   updated_at timestamptz not null default now()
 );
 
-create table public.order_items (
+create table public.lw_order_items (
   id uuid primary key default gen_random_uuid(),
-  order_id uuid not null references public.orders (id) on delete cascade,
-  product_id uuid references public.products (id) on delete set null,
+  order_id uuid not null references public.lw_orders (id) on delete cascade,
+  product_id uuid references public.lw_products (id) on delete set null,
   product_name text not null,
   sku text not null,
   image_path text,
@@ -149,9 +149,9 @@ create table public.order_items (
   updated_at timestamptz not null default now()
 );
 
-create table public.order_status_history (
+create table public.lw_order_status_history (
   id bigint generated always as identity primary key,
-  order_id uuid not null references public.orders (id) on delete cascade,
+  order_id uuid not null references public.lw_orders (id) on delete cascade,
   from_status text,
   to_status text not null,
   changed_by uuid references auth.users (id) on delete set null,
@@ -161,7 +161,7 @@ create table public.order_status_history (
 );
 
 -- Checkout rate-limit log (written only by place_order; no client access).
-create table public.checkout_attempts (
+create table public.lw_checkout_attempts (
   id bigint generated always as identity primary key,
   ip_hash text,
   phone text not null,
@@ -172,15 +172,15 @@ create table public.checkout_attempts (
 -- ---------------------------------------------------------------------
 -- customer data
 -- ---------------------------------------------------------------------
-create table public.wishlists (
+create table public.lw_wishlists (
   user_id uuid not null references auth.users (id) on delete cascade,
-  product_id uuid not null references public.products (id) on delete cascade,
+  product_id uuid not null references public.lw_products (id) on delete cascade,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   primary key (user_id, product_id)
 );
 
-create table public.addresses (
+create table public.lw_addresses (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users (id) on delete cascade,
   recipient_name text not null check (char_length(recipient_name) between 1 and 120),
@@ -197,7 +197,7 @@ create table public.addresses (
 -- ---------------------------------------------------------------------
 -- settings (singleton)
 -- ---------------------------------------------------------------------
-create table public.site_settings (
+create table public.lw_site_settings (
   id int primary key default 1 check (id = 1),
   store_name text not null default 'Luxe Watch' check (char_length(store_name) between 1 and 120),
   hero_image_path text,
@@ -218,30 +218,30 @@ create table public.site_settings (
 -- ---------------------------------------------------------------------
 -- Indexes
 -- ---------------------------------------------------------------------
-create index categories_parent_id_idx on public.categories (parent_id);
-create index products_active_featured_idx on public.products (is_active, is_featured);
-create index products_category_id_idx on public.products (category_id);
-create index products_brand_id_idx on public.products (brand_id);
-create index products_price_idx on public.products (price);
-create index products_created_at_idx on public.products (created_at desc);
-create index products_search_idx on public.products using gin (search_vector);
-create index products_features_idx on public.products using gin (features);
-create index product_images_product_id_idx on public.product_images (product_id, sort_order);
-create index orders_status_created_idx on public.orders (status, created_at desc);
-create index orders_created_at_idx on public.orders (created_at desc);
-create index orders_user_id_idx on public.orders (user_id);
-create index orders_customer_phone_idx on public.orders (customer_phone);
-create index order_items_order_id_idx on public.order_items (order_id);
-create index order_items_product_id_idx on public.order_items (product_id);
-create index order_status_history_order_id_idx on public.order_status_history (order_id, created_at);
-create index order_status_history_changed_by_idx on public.order_status_history (changed_by);
-create index checkout_attempts_created_at_idx on public.checkout_attempts (created_at);
-create index checkout_attempts_phone_idx on public.checkout_attempts (phone, created_at);
-create index checkout_attempts_ip_hash_idx on public.checkout_attempts (ip_hash, created_at);
-create index wishlists_product_id_idx on public.wishlists (product_id);
-create index addresses_user_id_idx on public.addresses (user_id);
-create unique index addresses_one_default_per_user_idx
-  on public.addresses (user_id) where is_default;
+create index lw_categories_parent_id_idx on public.lw_categories (parent_id);
+create index lw_products_active_featured_idx on public.lw_products (is_active, is_featured);
+create index lw_products_category_id_idx on public.lw_products (category_id);
+create index lw_products_brand_id_idx on public.lw_products (brand_id);
+create index lw_products_price_idx on public.lw_products (price);
+create index lw_products_created_at_idx on public.lw_products (created_at desc);
+create index lw_products_search_idx on public.lw_products using gin (search_vector);
+create index lw_products_features_idx on public.lw_products using gin (features);
+create index lw_product_images_product_id_idx on public.lw_product_images (product_id, sort_order);
+create index lw_orders_status_created_idx on public.lw_orders (status, created_at desc);
+create index lw_orders_created_at_idx on public.lw_orders (created_at desc);
+create index lw_orders_user_id_idx on public.lw_orders (user_id);
+create index lw_orders_customer_phone_idx on public.lw_orders (customer_phone);
+create index lw_order_items_order_id_idx on public.lw_order_items (order_id);
+create index lw_order_items_product_id_idx on public.lw_order_items (product_id);
+create index lw_order_status_history_order_id_idx on public.lw_order_status_history (order_id, created_at);
+create index lw_order_status_history_changed_by_idx on public.lw_order_status_history (changed_by);
+create index lw_checkout_attempts_created_at_idx on public.lw_checkout_attempts (created_at);
+create index lw_checkout_attempts_phone_idx on public.lw_checkout_attempts (phone, created_at);
+create index lw_checkout_attempts_ip_hash_idx on public.lw_checkout_attempts (ip_hash, created_at);
+create index lw_wishlists_product_id_idx on public.lw_wishlists (product_id);
+create index lw_addresses_user_id_idx on public.lw_addresses (user_id);
+create unique index lw_addresses_one_default_per_user_idx
+  on public.lw_addresses (user_id) where is_default;
 
 -- ---------------------------------------------------------------------
 -- updated_at triggers
@@ -251,36 +251,38 @@ declare
   t text;
 begin
   foreach t in array array[
-    'profiles', 'categories', 'brands', 'products', 'product_images', 'orders',
-    'order_items', 'order_status_history', 'checkout_attempts', 'wishlists',
-    'addresses', 'site_settings'
+    'lw_profiles', 'lw_categories', 'lw_brands', 'lw_products', 'lw_product_images', 'lw_orders',
+    'lw_order_items', 'lw_order_status_history', 'lw_checkout_attempts', 'lw_wishlists',
+    'lw_addresses', 'lw_site_settings'
   ] loop
     execute format(
       'create trigger set_updated_at before update on public.%I
-       for each row execute function public.set_updated_at()', t);
+       for each row execute function public.lw_set_updated_at()', t);
   end loop;
 end;
 $$;
 
 -- ---------------------------------------------------------------------
--- Auto-create profile on sign-up
+-- Auto-create profile on sign-up (auth.users is shared with other apps in this
+-- project, so this must never fail).
 -- ---------------------------------------------------------------------
-create or replace function public.handle_new_user()
+create or replace function public.lw_handle_new_user()
 returns trigger
 language plpgsql
 security definer
 set search_path = ''
 as $$
 begin
-  insert into public.profiles (id, full_name)
-  values (new.id, left(new.raw_user_meta_data ->> 'full_name', 120));
+  insert into public.lw_profiles (id, full_name)
+  values (new.id, left(new.raw_user_meta_data ->> 'full_name', 120))
+  on conflict (id) do nothing;
   return new;
 end;
 $$;
 
-create trigger on_auth_user_created
+create trigger lw_on_auth_user_created
   after insert on auth.users
-  for each row execute function public.handle_new_user();
+  for each row execute function public.lw_handle_new_user();
 
-revoke execute on function public.handle_new_user() from public, anon, authenticated;
-revoke execute on function public.set_updated_at() from public, anon, authenticated;
+revoke execute on function public.lw_handle_new_user() from public, anon, authenticated;
+revoke execute on function public.lw_set_updated_at() from public, anon, authenticated;
