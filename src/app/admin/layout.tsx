@@ -4,7 +4,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { AdminMobileNav, AdminSidebar } from "@/components/admin/admin-nav";
 import { NewOrderBadge, NewOrderListener } from "@/components/admin/new-order-notifier";
-import { SignOutButton } from "@/components/admin/sign-out-button";
+import { SignOutButton } from "@/components/shared/sign-out-button";
 import { Providers } from "@/components/shared/providers";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { requireAdminPage } from "@/features/admin/auth";

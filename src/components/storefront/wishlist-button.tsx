@@ -9,15 +9,25 @@ import { getWishlistState, toggleWishlist } from "@/features/account/wishlist-ac
 import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-export function WishlistButton({ productId, slug }: { productId: string; slug: string }) {
+export function WishlistButton({
+  productId,
+  slug,
+  initialWishlisted,
+}: {
+  productId: string;
+  slug: string;
+  /** Known state (e.g. on the wishlist page): skips the initial lookup and refreshes on change. */
+  initialWishlisted?: boolean;
+}) {
   const t = useTranslations("Product");
   const tErrors = useTranslations("Errors");
   const locale = useLocale();
   const router = useRouter();
-  const [wishlisted, setWishlisted] = useState(false);
+  const [wishlisted, setWishlisted] = useState(initialWishlisted ?? false);
   const [pending, startTransition] = useTransition();
 
   useEffect(() => {
+    if (initialWishlisted !== undefined) return;
     let active = true;
     getWishlistState(productId)
       .then((r) => {
@@ -27,7 +37,7 @@ export function WishlistButton({ productId, slug }: { productId: string; slug: s
     return () => {
       active = false;
     };
-  }, [productId]);
+  }, [productId, initialWishlisted]);
 
   const toggle = () =>
     startTransition(async () => {
@@ -42,6 +52,7 @@ export function WishlistButton({ productId, slug }: { productId: string; slug: s
         return void toast.error(tErrors(result.error));
       }
       setWishlisted(result.data.wishlisted);
+      if (initialWishlisted !== undefined) router.refresh();
       toast.success(result.data.wishlisted ? t("wishlistAdded") : t("wishlistRemoved"));
     });
 
