@@ -22,7 +22,7 @@ export async function saveSettings(input: SettingsInput): Promise<ActionResult> 
   try {
     const { data: current } = await admin.supabase
       .from("lw_site_settings")
-      .select("hero_image_path")
+      .select("hero_image_path, team_image_path")
       .eq("id", 1)
       .single();
     const { error } = await admin.supabase
@@ -36,16 +36,25 @@ export async function saveSettings(input: SettingsInput): Promise<ActionResult> 
         hero_title_en: rest.hero_title_en || null,
         hero_subtitle_vi: rest.hero_subtitle_vi || null,
         hero_subtitle_en: rest.hero_subtitle_en || null,
+        team_caption_vi: rest.team_caption_vi || null,
+        team_caption_en: rest.team_caption_en || null,
         social_links: social,
       })
       .eq("id", 1);
     if (error) throw error;
 
-    // Remove the previous hero file if it was replaced (only our own uploads).
-    const old = current?.hero_image_path;
-    if (old && old !== rest.hero_image_path && uploadedPath.test(old)) {
-      const { error: removeError } = await admin.supabase.storage.from(SITE_BUCKET).remove([old]);
-      if (removeError) logServerError("settings.removeHero", removeError);
+    // Remove previous hero/team files that were replaced (only our own uploads).
+    const replaced = [
+      [current?.hero_image_path, rest.hero_image_path],
+      [current?.team_image_path, rest.team_image_path],
+    ]
+      .filter(([before, after]) => before && before !== after && uploadedPath.test(before))
+      .map(([before]) => before as string);
+    if (replaced.length) {
+      const { error: removeError } = await admin.supabase.storage
+        .from(SITE_BUCKET)
+        .remove(replaced);
+      if (removeError) logServerError("settings.removeImages", removeError);
     }
     updateTag("settings");
     return ok(undefined);

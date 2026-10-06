@@ -7,8 +7,10 @@ import { Breadcrumbs } from "@/components/storefront/breadcrumbs";
 import { Price } from "@/components/storefront/price";
 import { ProductGrid } from "@/components/storefront/product-card";
 import { ProductGallery } from "@/components/storefront/product-gallery";
+import { ProductReviews } from "@/components/storefront/product-reviews";
 import { WishlistButton } from "@/components/storefront/wishlist-button";
 import { getProductBySlug, getProductSlugs, getRelatedProducts } from "@/features/catalog/queries";
+import { displayName, getProductReviews } from "@/features/reviews/queries";
 import { getSettings } from "@/features/settings/queries";
 import { Link } from "@/i18n/navigation";
 import { formatVND } from "@/lib/format";
@@ -45,12 +47,13 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/produ
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const [t, tb, tFeatures, settings, related] = await Promise.all([
+  const [t, tb, tFeatures, settings, related, reviews] = await Promise.all([
     getTranslations("Product"),
     getTranslations("Breadcrumb"),
     getTranslations("Features"),
     getSettings(),
     getRelatedProducts(product.id, product.category_id, 4),
+    getProductReviews(product.id),
   ]);
 
   const name = pick(product, "name", locale);
@@ -107,6 +110,30 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/produ
       itemCondition: "https://schema.org/NewCondition",
       seller: { "@type": "Organization", name: settings.store_name },
     },
+    // Only real, approved reviews are ever emitted.
+    ...(reviews.count > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: reviews.average,
+            reviewCount: reviews.count,
+            bestRating: 5,
+            worstRating: 1,
+          },
+          review: reviews.items.slice(0, 5).map((r) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: displayName(r.author_name) },
+            datePublished: r.created_at.slice(0, 10),
+            reviewBody: r.body,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: r.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
+          })),
+        }
+      : {}),
   };
 
   return (
@@ -226,6 +253,8 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/produ
           )}
         </div>
       </div>
+
+      <ProductReviews productId={product.id} slug={product.slug} reviews={reviews} />
 
       {related.length > 0 && (
         <section aria-labelledby="related-heading" className="mt-24">

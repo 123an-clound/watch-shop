@@ -67,7 +67,8 @@
     "trackOrder": "Track order",
     "rights": "© {year} {store}. All rights reserved.",
     "paymentNote": "Cash on delivery (COD) nationwide.",
-    "privacy": "Privacy policy"
+    "privacy": "Privacy policy",
+    "faq": "FAQ"
   },
   "NotFound": {
     "title": "Page not found",
@@ -141,7 +142,8 @@
     "productUnavailable": "An item in your cart is no longer available.",
     "captcha": "Anti-spam verification failed. Please try again.",
     "authCallback": "The link has expired or is invalid. Please try again.",
-    "duplicate": "Slug or SKU already exists."
+    "duplicate": "Slug or SKU already exists.",
+    "notEligible": "Only customers who received this watch can review it."
   },
   "Cart": {
     "title": "Cart",
@@ -181,7 +183,8 @@
       "settings": "Settings",
       "viewStore": "View store",
       "logout": "Sign out",
-      "menu": "Admin menu"
+      "menu": "Admin menu",
+      "reviews": "Reviews"
     },
     "signedInAs": "Signed in as {name}",
     "orders": {
@@ -310,7 +313,8 @@
           "heading": "After-sales service",
           "body": "Our watchmakers handle servicing, strap changes, adjustments and movement warranty for as long as you own your watch."
         }
-      ]
+      ],
+      "teamTitle": "Our team"
     },
     "warranty": {
       "title": "Warranty & returns",
@@ -394,6 +398,44 @@
         {
           "heading": "Contact",
           "body": "For any privacy question, reach us by email or phone listed on the Contact page."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "description": "Answers about authenticity, cash on delivery, shipping, warranty and returns at Luxe Watch.",
+      "items": [
+        {
+          "q": "Are the watches at Luxe Watch authentic?",
+          "a": "Yes. Every product has a clear provenance and comes with its box, warranty booklet and manufacturer papers. See the About page for details."
+        },
+        {
+          "q": "How do I pay?",
+          "a": "We only accept cash on delivery (COD). Inspect your watch, then pay the courier in cash."
+        },
+        {
+          "q": "Do I need an account to order?",
+          "a": "No. You can check out as a guest. An account lets you save addresses, see your order history and keep a wishlist."
+        },
+        {
+          "q": "What are the shipping fee and delivery time?",
+          "a": "The shipping fee and free-shipping threshold are shown in the cart and at checkout. Estimated delivery times are on the Shipping policy page."
+        },
+        {
+          "q": "How can I track my order?",
+          "a": "Open Track order and enter your order code (LW-…) and the phone number used at checkout. With an account, see Account → Orders."
+        },
+        {
+          "q": "What does the warranty cover?",
+          "a": "Movements are covered as described on the Warranty & returns page; damage from impact or misuse is not covered."
+        },
+        {
+          "q": "Can I return a product?",
+          "a": "Yes, within the period and conditions on the Warranty & returns page (unused, with seals, box and accessories)."
+        },
+        {
+          "q": "Can I cancel my order?",
+          "a": "Contact us by phone (see the Contact page) before the order is handed to the courier and we'll help you cancel it."
         }
       ]
     }
@@ -499,5 +541,24 @@
     "noWishlist": "Your wishlist is empty.",
     "remove": "Remove from wishlist",
     "maxAddresses": "You can save up to 10 addresses."
+  },
+  "Reviews": {
+    "title": "Customer reviews",
+    "count": "{count, plural, =0 {No reviews yet} one {# review} other {# reviews}}",
+    "average": "{rating}/5",
+    "empty": "No reviews for this watch yet.",
+    "rating": "Rating",
+    "stars": "{count} stars",
+    "body": "Your review",
+    "bodyHint": "At least 10 characters.",
+    "submit": "Submit review",
+    "submitted": "Thank you! Your review will appear once approved.",
+    "writeReview": "Write a review",
+    "loginToReview": "Sign in to write a review",
+    "onlyBuyers": "Only customers who received this watch can review it.",
+    "yourReviewPending": "Your review is awaiting approval.",
+    "verified": "Verified purchase",
+    "homeEyebrow": "Reviews",
+    "homeTitle": "What customers say"
   }
 }

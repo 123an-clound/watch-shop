@@ -67,7 +67,8 @@
     "trackOrder": "Tra cứu đơn hàng",
     "rights": "© {year} {store}. Bảo lưu mọi quyền.",
     "paymentNote": "Thanh toán khi nhận hàng (COD) trên toàn quốc.",
-    "privacy": "Chính sách bảo mật"
+    "privacy": "Chính sách bảo mật",
+    "faq": "Câu hỏi thường gặp"
   },
   "NotFound": {
     "title": "Không tìm thấy trang",
@@ -141,7 +142,8 @@
     "productUnavailable": "Một sản phẩm trong giỏ không còn được bán.",
     "captcha": "Xác minh chống spam thất bại. Vui lòng thử lại.",
     "authCallback": "Liên kết đã hết hạn hoặc không hợp lệ. Vui lòng thử lại.",
-    "duplicate": "Slug hoặc mã SKU đã tồn tại."
+    "duplicate": "Slug hoặc mã SKU đã tồn tại.",
+    "notEligible": "Chỉ khách đã nhận sản phẩm này mới có thể đánh giá."
   },
   "Cart": {
     "title": "Giỏ hàng",
@@ -181,7 +183,8 @@
       "settings": "Cài đặt",
       "viewStore": "Xem cửa hàng",
       "logout": "Đăng xuất",
-      "menu": "Menu quản trị"
+      "menu": "Menu quản trị",
+      "reviews": "Đánh giá"
     },
     "signedInAs": "Đăng nhập với {name}",
     "orders": {
@@ -422,7 +425,29 @@
       "facebook": "Facebook URL",
       "instagram": "Instagram URL",
       "zalo": "Zalo URL",
-      "youtube": "YouTube URL"
+      "youtube": "YouTube URL",
+      "team": "Đội ngũ (trang Giới thiệu)",
+      "teamImage": "Ảnh đội ngũ",
+      "teamImageHint": "Ảnh thật của đội ngũ/chủ cửa hàng. Để trống nếu chưa có.",
+      "teamCaptionVi": "Chú thích (Tiếng Việt)",
+      "teamCaptionEn": "Chú thích (English)"
+    },
+    "reviews": {
+      "title": "Đánh giá",
+      "description": "Duyệt đánh giá từ khách đã mua hàng trước khi hiển thị.",
+      "product": "Sản phẩm",
+      "author": "Khách hàng",
+      "rating": "Sao",
+      "body": "Nội dung",
+      "status": "Trạng thái",
+      "date": "Ngày",
+      "pending": "Chờ duyệt",
+      "approved": "Đã duyệt",
+      "rejected": "Từ chối",
+      "approve": "Duyệt",
+      "reject": "Từ chối",
+      "empty": "Chưa có đánh giá nào.",
+      "updated": "Đã cập nhật đánh giá."
     }
   },
   "Home": {
@@ -556,7 +581,8 @@
           "heading": "Dịch vụ sau bán hàng",
           "body": "Đội ngũ kỹ thuật viên của chúng tôi hỗ trợ bảo dưỡng, thay dây, điều chỉnh và bảo hành bộ máy trong suốt quá trình sử dụng."
         }
-      ]
+      ],
+      "teamTitle": "Đội ngũ của chúng tôi"
     },
     "warranty": {
       "title": "Bảo hành & đổi trả",
@@ -640,6 +666,44 @@
         {
           "heading": "Liên hệ",
           "body": "Mọi câu hỏi về quyền riêng tư, vui lòng liên hệ qua email hoặc số điện thoại tại trang Liên hệ."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Câu hỏi thường gặp",
+      "description": "Giải đáp về hàng chính hãng, thanh toán khi nhận hàng, giao hàng, bảo hành và đổi trả tại Luxe Watch.",
+      "items": [
+        {
+          "q": "Đồng hồ tại Luxe Watch có phải hàng chính hãng không?",
+          "a": "Có. Mọi sản phẩm đều có nguồn gốc rõ ràng, đi kèm hộp, sổ bảo hành và giấy tờ của hãng. Chi tiết xem tại trang Giới thiệu."
+        },
+        {
+          "q": "Tôi thanh toán như thế nào?",
+          "a": "Chúng tôi chỉ nhận thanh toán khi nhận hàng (COD). Bạn kiểm tra sản phẩm rồi thanh toán bằng tiền mặt cho nhân viên giao hàng."
+        },
+        {
+          "q": "Tôi có cần tạo tài khoản để đặt hàng không?",
+          "a": "Không bắt buộc. Bạn có thể đặt hàng với tư cách khách. Tài khoản giúp lưu địa chỉ, xem lịch sử đơn và danh sách yêu thích."
+        },
+        {
+          "q": "Phí và thời gian giao hàng?",
+          "a": "Phí giao hàng và ngưỡng miễn phí giao hàng được hiển thị ở giỏ hàng và trang thanh toán. Thời gian giao dự kiến xem tại trang Chính sách giao hàng."
+        },
+        {
+          "q": "Làm sao để theo dõi đơn hàng?",
+          "a": "Vào trang Tra cứu đơn hàng, nhập mã đơn (dạng LW-…) và số điện thoại đã dùng khi đặt hàng. Nếu có tài khoản, bạn xem đơn trong mục Tài khoản → Đơn hàng."
+        },
+        {
+          "q": "Chính sách bảo hành thế nào?",
+          "a": "Đồng hồ được bảo hành bộ máy theo chính sách tại trang Bảo hành & đổi trả, không áp dụng cho hư hỏng do va đập hoặc sử dụng sai cách."
+        },
+        {
+          "q": "Tôi có thể đổi trả sản phẩm không?",
+          "a": "Có, trong thời hạn và điều kiện nêu tại trang Bảo hành & đổi trả (sản phẩm còn nguyên tem, hộp, phụ kiện và chưa qua sử dụng)."
+        },
+        {
+          "q": "Tôi có thể hủy đơn đã đặt không?",
+          "a": "Bạn liên hệ với chúng tôi qua số điện thoại tại trang Liên hệ trước khi đơn được giao cho đơn vị vận chuyển để được hỗ trợ hủy đơn."
         }
       ]
     }
@@ -745,5 +809,24 @@
     "noWishlist": "Danh sách yêu thích đang trống.",
     "remove": "Bỏ khỏi yêu thích",
     "maxAddresses": "Bạn chỉ có thể lưu tối đa 10 địa chỉ."
+  },
+  "Reviews": {
+    "title": "Đánh giá của khách hàng",
+    "count": "{count, plural, =0 {Chưa có đánh giá} other {# đánh giá}}",
+    "average": "{rating}/5",
+    "empty": "Chưa có đánh giá nào cho sản phẩm này.",
+    "rating": "Số sao",
+    "stars": "{count} sao",
+    "body": "Nội dung đánh giá",
+    "bodyHint": "Tối thiểu 10 ký tự.",
+    "submit": "Gửi đánh giá",
+    "submitted": "Cảm ơn bạn! Đánh giá sẽ hiển thị sau khi được duyệt.",
+    "writeReview": "Viết đánh giá",
+    "loginToReview": "Đăng nhập để viết đánh giá",
+    "onlyBuyers": "Chỉ khách đã nhận sản phẩm này mới có thể đánh giá.",
+    "yourReviewPending": "Đánh giá của bạn đang chờ duyệt.",
+    "verified": "Đã mua hàng",
+    "homeEyebrow": "Đánh giá",
+    "homeTitle": "Khách hàng nói gì"
   }
 }

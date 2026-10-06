@@ -8,9 +8,11 @@ import {
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Stars } from "@/components/shared/stars";
 import { ProductGrid } from "@/components/storefront/product-card";
 import { Button } from "@/components/ui/button";
 import { getBrands, getCategories, getFeaturedProducts } from "@/features/catalog/queries";
+import { displayName, getLatestReviews } from "@/features/reviews/queries";
 import { getSettings } from "@/features/settings/queries";
 import { Link } from "@/i18n/navigation";
 import { formatVND } from "@/lib/format";
@@ -65,13 +67,15 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [t, tc, settings, featured, brands, categories] = await Promise.all([
+  const [t, tc, tReviews, settings, featured, brands, categories, reviews] = await Promise.all([
     getTranslations("Home"),
     getTranslations("Common"),
+    getTranslations("Reviews"),
     getSettings(),
     getFeaturedProducts(8),
     getBrands(),
     getCategories(),
+    getLatestReviews(3),
   ]);
 
   const heroTitle = pick(settings, "hero_title", locale);
@@ -214,6 +218,34 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           ))}
         </ul>
       </section>
+
+      {/* Real, approved customer reviews only — hidden until there are some. */}
+      {reviews.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+          <SectionHeading eyebrow={tReviews("homeEyebrow")} title={tReviews("homeTitle")} />
+          <ul className="grid gap-4 md:grid-cols-3">
+            {reviews.map((r) => (
+              <li key={r.id}>
+                <figure className="flex h-full flex-col rounded-lg border bg-card p-6">
+                  <Stars rating={r.rating} label={tReviews("stars", { count: r.rating })} />
+                  <blockquote className="mt-4 flex-1 leading-relaxed">“{r.body}”</blockquote>
+                  <figcaption className="mt-4 text-sm text-muted-foreground">
+                    {displayName(r.author_name)}
+                    {r.product && (
+                      <>
+                        {" · "}
+                        <Link href={`/products/${r.product.slug}`} className="hover:text-primary">
+                          {pick(r.product, "name", locale)}
+                        </Link>
+                      </>
+                    )}
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="border-t bg-card/40">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:px-8">

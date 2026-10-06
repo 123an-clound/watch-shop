@@ -9,6 +9,7 @@ export type Database = {
                   Row: {
                     "created_at": string,"id": string,"is_default": boolean,"note": string | null,"phone": string,"province": string,"recipient_name": string,"street": string,"updated_at": string,"user_id": string,"ward": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"id"?: string,"is_default"?: boolean,"note"?: string | null,"phone": string,"province": string,"recipient_name": string,"street": string,"updated_at"?: string,"user_id": string,"ward": string
                   }
@@ -22,6 +23,7 @@ export type Database = {
                   Row: {
                     "created_at": string,"description_en": string | null,"description_vi": string | null,"id": string,"logo_url": string | null,"name": string,"slug": string,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"description_en"?: string | null,"description_vi"?: string | null,"id"?: string,"logo_url"?: string | null,"name": string,"slug": string,"updated_at"?: string
                   }
@@ -35,6 +37,7 @@ export type Database = {
                   Row: {
                     "created_at": string,"id": string,"name_en": string,"name_vi": string,"parent_id": string | null,"slug": string,"sort_order": number,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"id"?: string,"name_en": string,"name_vi": string,"parent_id"?: string | null,"slug": string,"sort_order"?: number,"updated_at"?: string
                   }
@@ -54,6 +57,7 @@ isOneToOne: false
                   Row: {
                     "created_at": string,"id": number,"ip_hash": string | null,"phone": string,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"id"?: never,"ip_hash"?: string | null,"phone": string,"updated_at"?: string
                   }
@@ -67,6 +71,7 @@ isOneToOne: false
                   Row: {
                     "created_at": string,"id": string,"image_path": string | null,"order_id": string,"product_id": string | null,"product_name": string,"quantity": number,"sku": string,"unit_price": number,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"id"?: string,"image_path"?: string | null,"order_id": string,"product_id"?: string | null,"product_name": string,"quantity": number,"sku": string,"unit_price": number,"updated_at"?: string
                   }
@@ -92,6 +97,7 @@ isOneToOne: false
                   Row: {
                     "changed_by": string | null,"created_at": string,"from_status": string | null,"id": number,"note": string | null,"order_id": string,"to_status": string,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "changed_by"?: string | null,"created_at"?: string,"from_status"?: string | null,"id"?: never,"note"?: string | null,"order_id": string,"to_status": string,"updated_at"?: string
                   }
@@ -111,6 +117,7 @@ isOneToOne: false
                   Row: {
                     "created_at": string,"customer_email": string | null,"customer_name": string,"customer_phone": string,"id": string,"locale": string,"order_code": string,"payment_method": string,"shipping_address": NonNullable<Json>,"shipping_fee": number,"status": string,"subtotal": number,"total": number,"updated_at": string,"user_id": string | null
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"customer_email"?: string | null,"customer_name": string,"customer_phone": string,"id"?: string,"locale"?: string,"order_code": string,"payment_method"?: string,"shipping_address": NonNullable<Json>,"shipping_fee": number,"status"?: string,"subtotal": number,"total": number,"updated_at"?: string,"user_id"?: string | null
                   }
@@ -124,6 +131,7 @@ isOneToOne: false
                   Row: {
                     "alt_en": string | null,"alt_vi": string | null,"created_at": string,"height": number,"id": string,"product_id": string,"sort_order": number,"storage_path": string,"updated_at": string,"width": number
                   }
+                  ComputedFields: never
                   Insert: {
                     "alt_en"?: string | null,"alt_vi"?: string | null,"created_at"?: string,"height": number,"id"?: string,"product_id": string,"sort_order"?: number,"storage_path": string,"updated_at"?: string,"width": number
                   }
@@ -143,6 +151,7 @@ isOneToOne: false
                   Row: {
                     "brand_id": string | null,"category_id": string | null,"compare_at_price": number | null,"created_at": string,"description_en": string | null,"description_vi": string | null,"features": NonNullable<Json>,"id": string,"is_active": boolean,"is_featured": boolean,"name_en": string,"name_vi": string,"price": number,"search_vector": unknown,"seo_description_en": string | null,"seo_description_vi": string | null,"seo_title_en": string | null,"seo_title_vi": string | null,"sku": string,"slug": string,"stock": number,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "brand_id"?: string | null,"category_id"?: string | null,"compare_at_price"?: number | null,"created_at"?: string,"description_en"?: string | null,"description_vi"?: string | null,"features"?: NonNullable<Json>,"id"?: string,"is_active"?: boolean,"is_featured"?: boolean,"name_en": string,"name_vi": string,"price": number,"search_vector"?: never,"seo_description_en"?: string | null,"seo_description_vi"?: string | null,"seo_title_en"?: string | null,"seo_title_vi"?: string | null,"sku": string,"slug": string,"stock"?: number,"updated_at"?: string
                   }
@@ -168,6 +177,7 @@ isOneToOne: false
                   Row: {
                     "created_at": string,"full_name": string | null,"id": string,"phone": string | null,"role": string,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"full_name"?: string | null,"id": string,"phone"?: string | null,"role"?: string,"updated_at"?: string
                   }
@@ -181,6 +191,7 @@ isOneToOne: false
                   Row: {
                     "bucket": string,"created_at": string,"id": number,"updated_at": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "bucket": string,"created_at"?: string,"id"?: never,"updated_at"?: string
                   }
@@ -190,15 +201,36 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
-                },"lw_site_settings": {
+                },"lw_reviews": {
                   Row: {
-                    "address": string | null,"contact_email": string | null,"contact_phone": string | null,"created_at": string,"free_shipping_threshold": number,"hero_image_path": string | null,"hero_subtitle_en": string | null,"hero_subtitle_vi": string | null,"hero_title_en": string | null,"hero_title_vi": string | null,"id": number,"shipping_fee": number,"social_links": NonNullable<Json>,"store_name": string,"updated_at": string
+                    "author_name": string,"body": string,"created_at": string,"id": string,"product_id": string,"rating": number,"status": string,"updated_at": string,"user_id": string | null
                   }
+                  ComputedFields: never
                   Insert: {
-                    "address"?: string | null,"contact_email"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"free_shipping_threshold"?: number,"hero_image_path"?: string | null,"hero_subtitle_en"?: string | null,"hero_subtitle_vi"?: string | null,"hero_title_en"?: string | null,"hero_title_vi"?: string | null,"id"?: number,"shipping_fee"?: number,"social_links"?: NonNullable<Json>,"store_name"?: string,"updated_at"?: string
+                    "author_name": string,"body": string,"created_at"?: string,"id"?: string,"product_id": string,"rating": number,"status"?: string,"updated_at"?: string,"user_id"?: string | null
                   }
                   Update: {
-                    "address"?: string | null,"contact_email"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"free_shipping_threshold"?: number,"hero_image_path"?: string | null,"hero_subtitle_en"?: string | null,"hero_subtitle_vi"?: string | null,"hero_title_en"?: string | null,"hero_title_vi"?: string | null,"id"?: number,"shipping_fee"?: number,"social_links"?: NonNullable<Json>,"store_name"?: string,"updated_at"?: string
+                    "author_name"?: string,"body"?: string,"created_at"?: string,"id"?: string,"product_id"?: string,"rating"?: number,"status"?: string,"updated_at"?: string,"user_id"?: string | null
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "lw_reviews_product_id_fkey"
+      columns: ["product_id"]
+isOneToOne: false
+      referencedRelation: "lw_products"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"lw_site_settings": {
+                  Row: {
+                    "address": string | null,"contact_email": string | null,"contact_phone": string | null,"created_at": string,"free_shipping_threshold": number,"hero_image_path": string | null,"hero_subtitle_en": string | null,"hero_subtitle_vi": string | null,"hero_title_en": string | null,"hero_title_vi": string | null,"id": number,"shipping_fee": number,"social_links": NonNullable<Json>,"store_name": string,"team_caption_en": string | null,"team_caption_vi": string | null,"team_image_path": string | null,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "address"?: string | null,"contact_email"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"free_shipping_threshold"?: number,"hero_image_path"?: string | null,"hero_subtitle_en"?: string | null,"hero_subtitle_vi"?: string | null,"hero_title_en"?: string | null,"hero_title_vi"?: string | null,"id"?: number,"shipping_fee"?: number,"social_links"?: NonNullable<Json>,"store_name"?: string,"team_caption_en"?: string | null,"team_caption_vi"?: string | null,"team_image_path"?: string | null,"updated_at"?: string
+                  }
+                  Update: {
+                    "address"?: string | null,"contact_email"?: string | null,"contact_phone"?: string | null,"created_at"?: string,"free_shipping_threshold"?: number,"hero_image_path"?: string | null,"hero_subtitle_en"?: string | null,"hero_subtitle_vi"?: string | null,"hero_title_en"?: string | null,"hero_title_vi"?: string | null,"id"?: number,"shipping_fee"?: number,"social_links"?: NonNullable<Json>,"store_name"?: string,"team_caption_en"?: string | null,"team_caption_vi"?: string | null,"team_image_path"?: string | null,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -207,6 +239,7 @@ isOneToOne: false
                   Row: {
                     "created_at": string,"product_id": string,"updated_at": string,"user_id": string
                   }
+                  ComputedFields: never
                   Insert: {
                     "created_at"?: string,"product_id": string,"updated_at"?: string,"user_id": string
                   }
@@ -256,6 +289,9 @@ isOneToOne: false
                            },
 "lw_place_order":
 { Args: { "payload": Json }; Returns: string
+                           },
+"lw_submit_review":
+{ Args: { "p_body": string,"p_product_id": string,"p_rating": number }; Returns: string
                            },
 "lw_update_order_status":
 { Args: { "p_note"?: string,"p_order_id": string,"p_to_status": string }; Returns: undefined

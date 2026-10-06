@@ -1,6 +1,7 @@
 import { LOCAL_SUPABASE } from "../../playwright.config";
 
 export const ADMIN = { email: "e2e-admin@luxewatch.test", password: "E2eAdmin!2345" };
+export const CUSTOMER = { email: "e2e-customer@luxewatch.test", password: "E2eCustomer!2345" };
 
 const headers = {
   apikey: LOCAL_SUPABASE.secretKey,
@@ -10,6 +11,26 @@ const headers = {
 
 /** Ensure an admin user exists in the local stack and clear checkout rate-limit rows. */
 export default async function globalSetup() {
+  // Customer used by the review flow (idempotent: 422 = already exists).
+  const customer = await fetch(`${LOCAL_SUPABASE.url}/auth/v1/admin/users`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      email: CUSTOMER.email,
+      password: CUSTOMER.password,
+      email_confirm: true,
+      user_metadata: { full_name: "Khách Đánh Giá" },
+    }),
+  });
+  if (!customer.ok && customer.status !== 422) {
+    throw new Error(`Could not create customer: ${customer.status} ${await customer.text()}`);
+  }
+  // Start each run without previous e2e reviews.
+  await fetch(`${LOCAL_SUPABASE.url}/rest/v1/lw_reviews?body=like.E2E*`, {
+    method: "DELETE",
+    headers,
+  });
+
   const create = await fetch(`${LOCAL_SUPABASE.url}/auth/v1/admin/users`, {
     method: "POST",
     headers,

@@ -17,6 +17,7 @@ export const STOREFRONT_CLIENT_NAMESPACES = [
   "Account",
   "Track",
   "Status",
+  "Reviews",
 ];
 
 export const ADMIN_CLIENT_NAMESPACES = [

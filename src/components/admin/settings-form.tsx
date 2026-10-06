@@ -32,33 +32,14 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export function SettingsForm({ initial }: { initial: SettingsInput }) {
   const t = useTranslations("Admin.settings");
-  const tp = useTranslations("Admin.products");
   const tc = useTranslations("Admin.common");
   const { pending, submit } = useAdminSubmit();
-  const [uploading, setUploading] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(0);
   const form = useForm<SettingsInput, unknown, Output>({
     resolver: zodResolver(settingsSchema),
     defaultValues: initial,
   });
   const { errors } = form.formState;
-
-  async function uploadHero(file: File) {
-    setUploading(true);
-    try {
-      const { blob } = await compressImage(file);
-      const path = `${crypto.randomUUID()}.webp`;
-      const { error } = await createClient()
-        .storage.from(SITE_BUCKET)
-        .upload(path, blob, { contentType: "image/webp", cacheControl: "31536000" });
-      if (error) throw error;
-      form.setValue("hero_image_path", path, { shouldDirty: true });
-    } catch {
-      toast.error(tp("uploadFailed", { name: file.name }));
-    } finally {
-      setUploading(false);
-    }
-  }
 
   const onSubmit = form.handleSubmit((values) => submit(() => saveSettings(values)));
   const field = (
@@ -92,54 +73,14 @@ export function SettingsForm({ initial }: { initial: SettingsInput }) {
           control={form.control}
           name="hero_image_path"
           render={({ field: hero }) => (
-            <div className="mb-4 grid gap-3">
-              <p className="text-sm font-medium">{t("heroImage")}</p>
-              <div className="relative aspect-[16/7] w-full max-w-xl overflow-hidden rounded-lg border bg-muted">
-                {hero.value && (
-                  <Image
-                    src={publicImageUrl(hero.value, SITE_BUCKET)}
-                    alt=""
-                    fill
-                    sizes="576px"
-                    className="object-cover"
-                  />
-                )}
-              </div>
-              <p className="text-xs text-muted-foreground">{t("heroImageHint")}</p>
-              <div className="flex gap-2">
-                <input
-                  ref={fileRef}
-                  type="file"
-                  accept={ACCEPTED_IMAGE_TYPES.join(",")}
-                  className="sr-only"
-                  aria-label={t("changeImage")}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) void uploadHero(file);
-                    e.target.value = "";
-                  }}
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={uploading}
-                  onClick={() => fileRef.current?.click()}
-                >
-                  {uploading ? (
-                    <Loader2Icon className="animate-spin" aria-hidden />
-                  ) : (
-                    <ImagePlusIcon aria-hidden />
-                  )}
-                  {t("changeImage")}
-                </Button>
-                {hero.value && (
-                  <Button type="button" variant="ghost" onClick={() => hero.onChange(null)}>
-                    <Trash2Icon aria-hidden />
-                    {t("removeImage")}
-                  </Button>
-                )}
-              </div>
-            </div>
+            <ImageField
+              label={t("heroImage")}
+              hint={t("heroImageHint")}
+              value={hero.value}
+              onChange={hero.onChange}
+              onUploading={(d) => setUploading((n) => n + d)}
+              aspect="aspect-[16/7]"
+            />
           )}
         />
         <div className="grid gap-4 sm:grid-cols-2">
@@ -147,6 +88,28 @@ export function SettingsForm({ initial }: { initial: SettingsInput }) {
           {field("hero_title_en", t("heroTitleEn"))}
           {field("hero_subtitle_vi", t("heroSubtitleVi"), { textarea: true })}
           {field("hero_subtitle_en", t("heroSubtitleEn"), { textarea: true })}
+        </div>
+      </section>
+
+      <section className="rounded-lg border bg-card p-5">
+        <h2 className="mb-4 font-sans text-base font-semibold">{t("team")}</h2>
+        <Controller
+          control={form.control}
+          name="team_image_path"
+          render={({ field: team }) => (
+            <ImageField
+              label={t("teamImage")}
+              hint={t("teamImageHint")}
+              value={team.value}
+              onChange={team.onChange}
+              onUploading={(d) => setUploading((n) => n + d)}
+              aspect="aspect-[3/2]"
+            />
+          )}
+        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {field("team_caption_vi", t("teamCaptionVi"))}
+          {field("team_caption_en", t("teamCaptionEn"))}
         </div>
       </section>
 
@@ -166,10 +129,104 @@ export function SettingsForm({ initial }: { initial: SettingsInput }) {
       </Section>
 
       <div>
-        <Button type="submit" disabled={pending || uploading}>
+        <Button type="submit" disabled={pending || uploading > 0}>
           {pending ? tc("saving") : tc("save")}
         </Button>
       </div>
     </form>
+  );
+}
+
+/** Single image setting: compress to WebP, upload to the site bucket, store the path. */
+function ImageField({
+  label,
+  hint,
+  value,
+  onChange,
+  onUploading,
+  aspect,
+}: {
+  label: string;
+  hint: string;
+  value: string | null;
+  onChange: (path: string | null) => void;
+  onUploading: (delta: 1 | -1) => void;
+  aspect: string;
+}) {
+  const t = useTranslations("Admin.settings");
+  const tp = useTranslations("Admin.products");
+  const [busy, setBusy] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  async function upload(file: File) {
+    setBusy(true);
+    onUploading(1);
+    try {
+      const { blob } = await compressImage(file);
+      const path = `${crypto.randomUUID()}.webp`;
+      const { error } = await createClient()
+        .storage.from(SITE_BUCKET)
+        .upload(path, blob, { contentType: "image/webp", cacheControl: "31536000" });
+      if (error) throw error;
+      onChange(path);
+    } catch {
+      toast.error(tp("uploadFailed", { name: file.name }));
+    } finally {
+      setBusy(false);
+      onUploading(-1);
+    }
+  }
+
+  return (
+    <div className="mb-4 grid gap-3">
+      <p className="text-sm font-medium">{label}</p>
+      <div
+        className={`relative ${aspect} w-full max-w-xl overflow-hidden rounded-lg border bg-muted`}
+      >
+        {value && (
+          <Image
+            src={publicImageUrl(value, SITE_BUCKET)}
+            alt=""
+            fill
+            sizes="576px"
+            className="object-cover"
+          />
+        )}
+      </div>
+      <p className="text-xs text-muted-foreground">{hint}</p>
+      <div className="flex gap-2">
+        <input
+          ref={fileRef}
+          type="file"
+          accept={ACCEPTED_IMAGE_TYPES.join(",")}
+          className="sr-only"
+          aria-label={`${t("changeImage")} — ${label}`}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) void upload(file);
+            e.target.value = "";
+          }}
+        />
+        <Button
+          type="button"
+          variant="outline"
+          disabled={busy}
+          onClick={() => fileRef.current?.click()}
+        >
+          {busy ? (
+            <Loader2Icon className="animate-spin" aria-hidden />
+          ) : (
+            <ImagePlusIcon aria-hidden />
+          )}
+          {t("changeImage")}
+        </Button>
+        {value && (
+          <Button type="button" variant="ghost" onClick={() => onChange(null)}>
+            <Trash2Icon aria-hidden />
+            {t("removeImage")}
+          </Button>
+        )}
+      </div>
+    </div>
   );
 }

@@ -19,7 +19,13 @@ export async function staticPageMetadata(
 }
 
 /** Content page rendered from `Pages.<key>` messages (title + sections). */
-export async function StaticPage({ pageKey }: { pageKey: StaticPageKey }) {
+export async function StaticPage({
+  pageKey,
+  children,
+}: {
+  pageKey: StaticPageKey;
+  children?: React.ReactNode;
+}) {
   const t = await getTranslations(`Pages.${pageKey}`);
   const sections = t.raw("sections") as { heading: string; body: string }[];
 
@@ -36,6 +42,7 @@ export async function StaticPage({ pageKey }: { pageKey: StaticPageKey }) {
           </section>
         ))}
       </div>
+      {children}
     </article>
   );
 }

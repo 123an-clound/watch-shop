@@ -178,4 +178,43 @@ begin
 end;
 $$;
 
+-- Reviews: verified purchase only, upsert back to moderation, hidden from anon until approved.
+do $$
+declare
+  v_user uuid := gen_random_uuid();
+  v_pid uuid;
+  v_code text;
+  v_failed boolean := false;
+begin
+  reset role;
+  insert into auth.users (id, email) values (v_user, 'review-check@example.com');
+  select id into v_pid from public.lw_products where slug = 'seiko-5-sports-field';
+  perform set_config('request.jwt.claims', json_build_object('sub', v_user, 'role', 'authenticated')::text, true);
+  begin
+    perform public.lw_submit_review(v_pid, 5, 'Chưa mua mà đánh giá');
+  exception when others then
+    v_failed := sqlerrm = 'NOT_ELIGIBLE';
+  end;
+  assert v_failed, 'review requires a delivered order';
+
+  v_code := public.lw_place_order(jsonb_build_object(
+    'user_id', v_user, 'customer_name', 'R', 'customer_phone', '0933333333',
+    'shipping_address', jsonb_build_object('province', 'x', 'ward', 'y', 'street', 'z'),
+    'items', jsonb_build_array(jsonb_build_object('product_id', v_pid, 'quantity', 1))
+  ));
+  update public.lw_orders set status = 'delivered' where order_code = v_code;
+  perform public.lw_submit_review(v_pid, 5, 'Rất đẹp, giao nhanh');
+  update public.lw_reviews set status = 'approved' where user_id = v_user;
+  perform public.lw_submit_review(v_pid, 4, 'Sửa lại: đẹp, dây hơi cứng');
+  assert (select count(*) from public.lw_reviews where user_id = v_user) = 1, 'one review per user/product';
+  assert (select status from public.lw_reviews where user_id = v_user) = 'pending', 'edits return to moderation';
+
+  perform set_config('request.jwt.claims', '', true);
+  set local role anon;
+  assert (select count(*) from public.lw_reviews where user_id = v_user) = 0, 'pending review hidden from anon';
+  reset role;
+  raise notice 'orders_check: review checks passed';
+end;
+$$;
+
 rollback;

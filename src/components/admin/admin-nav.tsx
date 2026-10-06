@@ -6,6 +6,7 @@ import {
   LayoutDashboardIcon,
   MenuIcon,
   SettingsIcon,
+  StarIcon,
   ShoppingCartIcon,
   TagIcon,
   UsersIcon,
@@ -24,6 +25,7 @@ const items = [
   { href: "/admin/products", key: "products", icon: BoxIcon },
   { href: "/admin/categories", key: "categories", icon: FolderTreeIcon },
   { href: "/admin/brands", key: "brands", icon: TagIcon },
+  { href: "/admin/reviews", key: "reviews", icon: StarIcon },
   { href: "/admin/customers", key: "customers", icon: UsersIcon },
   { href: "/admin/settings", key: "settings", icon: SettingsIcon },
 ] as const;
