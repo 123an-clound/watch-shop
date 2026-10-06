@@ -215,7 +215,10 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "lw_cancel_order":
+            "lw_admin_save_product":
+{ Args: { "payload": Json }; Returns: Json
+                           },
+"lw_cancel_order":
 { Args: { "p_note"?: string,"p_order_id": string }; Returns: undefined
                            },
 "lw_get_order_by_code":

@@ -11,7 +11,8 @@ export type ErrorCode =
   | "notFound"
   | "outOfStock"
   | "productUnavailable"
-  | "captcha";
+  | "captcha"
+  | "duplicate";
 
 export type ActionResult<T = undefined> = { ok: true; data: T } | { ok: false; error: ErrorCode };
 

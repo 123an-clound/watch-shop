@@ -116,7 +116,11 @@
     "passwordMismatch": "Passwords do not match.",
     "phone": "Invalid phone number (e.g. 0901234567).",
     "tooLong": "Too long.",
-    "invalid": "Invalid value."
+    "invalid": "Invalid value.",
+    "slug": "Use lowercase letters, numbers and hyphens only.",
+    "featureKey": "Key may only contain lowercase letters, numbers and underscores.",
+    "compareAtPrice": "Compare-at price must be higher than the price.",
+    "featureDuplicate": "Duplicate specification key."
   },
   "Errors": {
     "generic": "Something went wrong. Please try again.",
@@ -132,7 +136,8 @@
     "outOfStock": "An item in your cart is out of stock or has insufficient quantity.",
     "productUnavailable": "An item in your cart is no longer available.",
     "captcha": "Anti-spam verification failed. Please try again.",
-    "authCallback": "The link has expired or is invalid. Please try again."
+    "authCallback": "The link has expired or is invalid. Please try again.",
+    "duplicate": "Slug or SKU already exists."
   },
   "Cart": {
     "title": "Cart",
