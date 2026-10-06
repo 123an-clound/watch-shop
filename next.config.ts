@@ -41,6 +41,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Tailwind CSS is small and atomic: inlining removes the render-blocking stylesheet request.
+  experimental: { inlineCss: true },
   images: {
     formats: ["image/avif", "image/webp"],
     // Only for a local Supabase stack (127.0.0.1); hosted Supabase never needs this.

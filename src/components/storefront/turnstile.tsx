@@ -1,11 +1,11 @@
 "use client";
 
 import Script from "next/script";
-import { env } from "@/env";
+import { publicEnv } from "@/lib/public-env";
 
 /** Cloudflare Turnstile widget (implicit render). Renders nothing when not configured. */
 export function Turnstile() {
-  const siteKey = env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const siteKey = publicEnv.turnstileSiteKey;
   if (!siteKey) return null;
   return (
     <>

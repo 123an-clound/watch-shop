@@ -35,7 +35,12 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" aria-label={t("label")} disabled={pending}>
+        <Button
+          variant="ghost"
+          size="sm"
+          aria-label={`${locale.toUpperCase()} — ${t("label")}`}
+          disabled={pending}
+        >
           <GlobeIcon aria-hidden />
           <span className="uppercase">{locale}</span>
         </Button>

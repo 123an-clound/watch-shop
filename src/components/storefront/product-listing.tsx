@@ -240,9 +240,13 @@ async function Results({
 
   return (
     <>
-      <p id="results-heading" className="mb-6 text-sm text-muted-foreground" aria-live="polite">
+      <h2
+        id="results-heading"
+        className="mb-6 font-sans text-sm font-normal text-muted-foreground"
+        aria-live="polite"
+      >
         {t("resultCount", { count: total })}
-      </p>
+      </h2>
       {items.length === 0 ? (
         <div className="rounded-lg border border-dashed px-6 py-20 text-center">
           <p className="text-lg">{t("empty")}</p>

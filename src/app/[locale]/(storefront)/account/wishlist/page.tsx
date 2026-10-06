@@ -38,7 +38,7 @@ export default async function WishlistPage({ params }: PageProps<"/[locale]/acco
         <ul className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3">
           {products.map((p) => (
             <li key={p.id} className="relative">
-              <ProductCard product={p} />
+              <ProductCard product={p} headingLevel="h2" />
               <div className="absolute top-2 right-2 z-10">
                 <WishlistButton productId={p.id} slug={p.slug} initialWishlisted />
               </div>

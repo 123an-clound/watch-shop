@@ -39,6 +39,7 @@ export function ProductGallery({ images, name }: { images: GalleryImage[]; name:
           alt={current.alt}
           fill
           preload
+          fetchPriority="high"
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-cover"
         />

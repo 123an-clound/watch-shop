@@ -9,10 +9,13 @@ import { Price } from "./price";
 export function ProductCard({
   product,
   priority = false,
+  headingLevel = "h3",
 }: {
   product: ProductCardData;
   priority?: boolean;
+  headingLevel?: "h2" | "h3";
 }) {
+  const Heading = headingLevel;
   const t = useTranslations("Products");
   const locale = useLocale();
   const name = pick(product, "name", locale);
@@ -47,14 +50,14 @@ export function ProductCard({
       </div>
       <div className="mt-4 flex flex-1 flex-col gap-1">
         {product.brand && <p className="eyebrow text-[0.65rem]">{product.brand.name}</p>}
-        <h3 className="font-sans text-sm leading-snug font-medium sm:text-base">
+        <Heading className="font-sans text-sm leading-snug font-medium sm:text-base">
           <Link
             href={`/products/${product.slug}`}
             className="after:absolute after:inset-0 hover:text-primary"
           >
             {name}
           </Link>
-        </h3>
+        </Heading>
         <Price
           price={product.price}
           compareAt={product.compare_at_price}
