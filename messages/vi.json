@@ -1,9 +1,181 @@
 {
   "Metadata": {
     "siteName": "Luxe Watch",
-    "description": "Đồng hồ cao cấp chính hãng — thanh toán khi nhận hàng, giao toàn quốc."
+    "description": "Đồng hồ cao cấp chính hãng từ Thụy Sĩ và Nhật Bản — bảo hành 5 năm, thanh toán khi nhận hàng, giao hàng toàn quốc."
   },
-  "Home": {
-    "title": "Đồng hồ cao cấp chính hãng"
+  "Common": {
+    "skipToContent": "Bỏ qua đến nội dung chính",
+    "loading": "Đang tải…",
+    "retry": "Thử lại",
+    "save": "Lưu",
+    "saving": "Đang lưu…",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "close": "Đóng",
+    "back": "Quay lại",
+    "home": "Trang chủ",
+    "viewAll": "Xem tất cả",
+    "required": "Bắt buộc",
+    "optional": "Không bắt buộc",
+    "or": "hoặc"
+  },
+  "Nav": {
+    "mainMenu": "Menu chính",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "products": "Sản phẩm",
+    "allWatches": "Tất cả đồng hồ",
+    "brands": "Thương hiệu",
+    "categories": "Danh mục",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "trackOrder": "Tra cứu đơn hàng",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm đồng hồ, thương hiệu, mã SKU…",
+    "account": "Tài khoản",
+    "login": "Đăng nhập",
+    "wishlist": "Yêu thích",
+    "cart": "Giỏ hàng",
+    "cartCount": "Giỏ hàng, {count, plural, =0 {trống} other {# sản phẩm}}",
+    "admin": "Quản trị",
+    "shopByBrand": "Mua theo thương hiệu",
+    "shopByCategory": "Mua theo danh mục"
+  },
+  "Theme": {
+    "toggle": "Đổi giao diện sáng/tối",
+    "light": "Sáng",
+    "dark": "Tối"
+  },
+  "Language": {
+    "label": "Ngôn ngữ",
+    "vi": "Tiếng Việt",
+    "en": "English"
+  },
+  "Footer": {
+    "tagline": "Đồng hồ chính hãng, tuyển chọn cho người sành thời gian.",
+    "shop": "Cửa hàng",
+    "support": "Hỗ trợ",
+    "company": "Về chúng tôi",
+    "warranty": "Bảo hành & đổi trả",
+    "shipping": "Chính sách giao hàng",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "trackOrder": "Tra cứu đơn hàng",
+    "rights": "© {year} {store}. Bảo lưu mọi quyền.",
+    "paymentNote": "Thanh toán khi nhận hàng (COD) trên toàn quốc."
+  },
+  "NotFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Trang bạn tìm không tồn tại hoặc đã được di chuyển.",
+    "cta": "Về trang chủ",
+    "browse": "Xem sản phẩm"
+  },
+  "Error": {
+    "title": "Đã có lỗi xảy ra",
+    "description": "Chúng tôi không thể tải nội dung này. Vui lòng thử lại.",
+    "retry": "Thử lại"
+  },
+  "Auth": {
+    "loginTitle": "Đăng nhập",
+    "loginSubtitle": "Chào mừng quay lại. Đăng nhập để xem đơn hàng và danh sách yêu thích.",
+    "registerTitle": "Tạo tài khoản",
+    "registerSubtitle": "Lưu địa chỉ, theo dõi đơn hàng và danh sách yêu thích.",
+    "forgotTitle": "Quên mật khẩu",
+    "forgotSubtitle": "Nhập email, chúng tôi sẽ gửi liên kết đặt lại mật khẩu.",
+    "resetTitle": "Đặt mật khẩu mới",
+    "resetSubtitle": "Nhập mật khẩu mới cho tài khoản của bạn.",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Nhập lại mật khẩu",
+    "fullName": "Họ và tên",
+    "submitLogin": "Đăng nhập",
+    "submitRegister": "Tạo tài khoản",
+    "submitForgot": "Gửi liên kết",
+    "submitReset": "Cập nhật mật khẩu",
+    "magicLink": "Gửi link đăng nhập qua email",
+    "magicLinkSent": "Đã gửi link đăng nhập. Vui lòng kiểm tra email.",
+    "forgotLink": "Quên mật khẩu?",
+    "noAccount": "Chưa có tài khoản?",
+    "haveAccount": "Đã có tài khoản?",
+    "registerLink": "Đăng ký",
+    "loginLink": "Đăng nhập",
+    "loginSuccess": "Đăng nhập thành công.",
+    "registerSuccess": "Đăng ký thành công. Vui lòng kiểm tra email để xác nhận tài khoản.",
+    "forgotSuccess": "Nếu email tồn tại, chúng tôi đã gửi liên kết đặt lại mật khẩu.",
+    "resetSuccess": "Đã cập nhật mật khẩu.",
+    "logout": "Đăng xuất",
+    "logoutSuccess": "Đã đăng xuất.",
+    "guestNote": "Bạn cũng có thể mua hàng mà không cần tài khoản."
+  },
+  "Validation": {
+    "required": "Vui lòng nhập thông tin này.",
+    "email": "Email không hợp lệ.",
+    "passwordMin": "Mật khẩu cần ít nhất 8 ký tự.",
+    "passwordMismatch": "Mật khẩu nhập lại không khớp.",
+    "phone": "Số điện thoại không hợp lệ (VD: 0901234567).",
+    "tooLong": "Nội dung quá dài.",
+    "invalid": "Giá trị không hợp lệ."
+  },
+  "Errors": {
+    "generic": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    "invalidInput": "Thông tin chưa hợp lệ. Vui lòng kiểm tra lại.",
+    "invalidCredentials": "Email hoặc mật khẩu không đúng.",
+    "emailNotConfirmed": "Email chưa được xác nhận. Vui lòng kiểm tra hộp thư.",
+    "userExists": "Email này đã được đăng ký.",
+    "weakPassword": "Mật khẩu quá yếu.",
+    "rateLimited": "Bạn thao tác quá nhanh. Vui lòng thử lại sau ít phút.",
+    "unauthorized": "Vui lòng đăng nhập để tiếp tục.",
+    "forbidden": "Bạn không có quyền thực hiện thao tác này.",
+    "notFound": "Không tìm thấy dữ liệu.",
+    "outOfStock": "Một sản phẩm trong giỏ đã hết hàng hoặc không đủ số lượng.",
+    "productUnavailable": "Một sản phẩm trong giỏ không còn được bán.",
+    "captcha": "Xác minh chống spam thất bại. Vui lòng thử lại.",
+    "authCallback": "Liên kết đã hết hạn hoặc không hợp lệ. Vui lòng thử lại."
+  },
+  "Cart": {
+    "title": "Giỏ hàng",
+    "empty": "Giỏ hàng của bạn đang trống.",
+    "emptyCta": "Khám phá đồng hồ",
+    "subtotal": "Tạm tính",
+    "shipping": "Phí giao hàng",
+    "shippingFree": "Miễn phí",
+    "shippingAtCheckout": "Tính khi thanh toán",
+    "total": "Tổng cộng",
+    "freeShippingProgress": "Mua thêm {amount} để được miễn phí giao hàng.",
+    "freeShippingReached": "Đơn hàng của bạn được miễn phí giao hàng.",
+    "checkout": "Thanh toán",
+    "viewCart": "Xem giỏ hàng",
+    "continueShopping": "Tiếp tục mua sắm",
+    "remove": "Xóa {name} khỏi giỏ",
+    "quantity": "Số lượng",
+    "decrease": "Giảm số lượng",
+    "increase": "Tăng số lượng",
+    "onlyLeft": "Chỉ còn {count} sản phẩm",
+    "summary": "Tóm tắt đơn hàng",
+    "added": "Đã thêm vào giỏ hàng.",
+    "updated": "Giỏ hàng đã được cập nhật theo giá và tồn kho mới nhất.",
+    "checking": "Đang kiểm tra giá và tồn kho…"
+  },
+  "Admin": {
+    "title": "Quản trị",
+    "nav": {
+      "dashboard": "Tổng quan",
+      "products": "Sản phẩm",
+      "categories": "Danh mục",
+      "brands": "Thương hiệu",
+      "orders": "Đơn hàng",
+      "customers": "Khách hàng",
+      "settings": "Cài đặt",
+      "viewStore": "Xem cửa hàng",
+      "logout": "Đăng xuất",
+      "menu": "Menu quản trị"
+    },
+    "signedInAs": "Đăng nhập với {name}",
+    "orders": {
+      "newOrderToast": "Đơn hàng mới: {code}",
+      "view": "Xem"
+    }
   }
 }

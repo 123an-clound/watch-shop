@@ -1,9 +1,181 @@
 {
   "Metadata": {
     "siteName": "Luxe Watch",
-    "description": "Authentic luxury watches — cash on delivery, nationwide shipping."
+    "description": "Authentic Swiss and Japanese luxury watches — 5-year warranty, cash on delivery, nationwide shipping in Vietnam."
   },
-  "Home": {
-    "title": "Authentic luxury watches"
+  "Common": {
+    "skipToContent": "Skip to main content",
+    "loading": "Loading…",
+    "retry": "Try again",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "home": "Home",
+    "viewAll": "View all",
+    "required": "Required",
+    "optional": "Optional",
+    "or": "or"
+  },
+  "Nav": {
+    "mainMenu": "Main menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "products": "Watches",
+    "allWatches": "All watches",
+    "brands": "Brands",
+    "categories": "Categories",
+    "about": "About",
+    "contact": "Contact",
+    "trackOrder": "Track order",
+    "search": "Search",
+    "searchPlaceholder": "Search watches, brands, SKU…",
+    "account": "Account",
+    "login": "Sign in",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "cartCount": "Cart, {count, plural, =0 {empty} one {# item} other {# items}}",
+    "admin": "Admin",
+    "shopByBrand": "Shop by brand",
+    "shopByCategory": "Shop by category"
+  },
+  "Theme": {
+    "toggle": "Toggle light/dark theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "Language": {
+    "label": "Language",
+    "vi": "Tiếng Việt",
+    "en": "English"
+  },
+  "Footer": {
+    "tagline": "Authentic timepieces, curated for connoisseurs.",
+    "shop": "Shop",
+    "support": "Support",
+    "company": "Company",
+    "warranty": "Warranty & returns",
+    "shipping": "Shipping policy",
+    "about": "About us",
+    "contact": "Contact",
+    "trackOrder": "Track order",
+    "rights": "© {year} {store}. All rights reserved.",
+    "paymentNote": "Cash on delivery (COD) nationwide."
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has moved.",
+    "cta": "Back to home",
+    "browse": "Browse watches"
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "description": "We couldn't load this content. Please try again.",
+    "retry": "Try again"
+  },
+  "Auth": {
+    "loginTitle": "Sign in",
+    "loginSubtitle": "Welcome back. Sign in to see your orders and wishlist.",
+    "registerTitle": "Create account",
+    "registerSubtitle": "Save addresses, track orders and keep a wishlist.",
+    "forgotTitle": "Forgot password",
+    "forgotSubtitle": "Enter your email and we'll send you a reset link.",
+    "resetTitle": "Set a new password",
+    "resetSubtitle": "Enter a new password for your account.",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "fullName": "Full name",
+    "submitLogin": "Sign in",
+    "submitRegister": "Create account",
+    "submitForgot": "Send link",
+    "submitReset": "Update password",
+    "magicLink": "Email me a sign-in link",
+    "magicLinkSent": "Sign-in link sent. Please check your email.",
+    "forgotLink": "Forgot password?",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "registerLink": "Sign up",
+    "loginLink": "Sign in",
+    "loginSuccess": "Signed in successfully.",
+    "registerSuccess": "Account created. Please check your email to confirm it.",
+    "forgotSuccess": "If the email exists, we've sent a password reset link.",
+    "resetSuccess": "Password updated.",
+    "logout": "Sign out",
+    "logoutSuccess": "Signed out.",
+    "guestNote": "You can also check out without an account."
+  },
+  "Validation": {
+    "required": "This field is required.",
+    "email": "Invalid email address.",
+    "passwordMin": "Password must be at least 8 characters.",
+    "passwordMismatch": "Passwords do not match.",
+    "phone": "Invalid phone number (e.g. 0901234567).",
+    "tooLong": "Too long.",
+    "invalid": "Invalid value."
+  },
+  "Errors": {
+    "generic": "Something went wrong. Please try again.",
+    "invalidInput": "Some information is invalid. Please check and try again.",
+    "invalidCredentials": "Incorrect email or password.",
+    "emailNotConfirmed": "Email not confirmed yet. Please check your inbox.",
+    "userExists": "This email is already registered.",
+    "weakPassword": "Password is too weak.",
+    "rateLimited": "Too many attempts. Please try again in a few minutes.",
+    "unauthorized": "Please sign in to continue.",
+    "forbidden": "You don't have permission to do this.",
+    "notFound": "Not found.",
+    "outOfStock": "An item in your cart is out of stock or has insufficient quantity.",
+    "productUnavailable": "An item in your cart is no longer available.",
+    "captcha": "Anti-spam verification failed. Please try again.",
+    "authCallback": "The link has expired or is invalid. Please try again."
+  },
+  "Cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "emptyCta": "Explore watches",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "shippingFree": "Free",
+    "shippingAtCheckout": "Calculated at checkout",
+    "total": "Total",
+    "freeShippingProgress": "Add {amount} more for free shipping.",
+    "freeShippingReached": "Your order qualifies for free shipping.",
+    "checkout": "Checkout",
+    "viewCart": "View cart",
+    "continueShopping": "Continue shopping",
+    "remove": "Remove {name} from cart",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "onlyLeft": "Only {count} left",
+    "summary": "Order summary",
+    "added": "Added to cart.",
+    "updated": "Your cart was updated with the latest prices and stock.",
+    "checking": "Checking prices and stock…"
+  },
+  "Admin": {
+    "title": "Admin",
+    "nav": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "categories": "Categories",
+      "brands": "Brands",
+      "orders": "Orders",
+      "customers": "Customers",
+      "settings": "Settings",
+      "viewStore": "View store",
+      "logout": "Sign out",
+      "menu": "Admin menu"
+    },
+    "signedInAs": "Signed in as {name}",
+    "orders": {
+      "newOrderToast": "New order: {code}",
+      "view": "View"
+    }
   }
 }

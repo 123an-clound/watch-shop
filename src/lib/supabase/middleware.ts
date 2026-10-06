@@ -25,9 +25,7 @@ export async function updateSession(
             request.cookies.set(name, value);
             response.cookies.set(name, value, options);
           });
-          Object.entries(headers).forEach(([key, value]) =>
-            response.headers.set(key, value),
-          );
+          Object.entries(headers).forEach(([key, value]) => response.headers.set(key, value));
         },
       },
     },
