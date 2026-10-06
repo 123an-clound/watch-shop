@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Luxe Watch
 
-## Getting Started
+Luxury watch store (VI/EN) + admin dashboard. Next.js 16 (App Router) · Supabase · Tailwind v4 · shadcn/ui · next-intl.
 
-First, run the development server:
+## Local setup
 
-```bash
+```powershell
+npm install
+npx supabase start            # local stack on ports 563xx (applies migrations + seed)
+Copy-Item .env.example .env.local   # fill with values printed by `npx supabase status`
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Useful scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script                                                 | What it does                                                      |
+| ------------------------------------------------------ | ----------------------------------------------------------------- |
+| `npm run lint` / `npm run typecheck` / `npm run build` | Quality gates (zero warnings)                                     |
+| `npm run db:types:local`                               | Regenerate `src/types/database.types.ts` from the local DB        |
+| `npm run db:types`                                     | Same, from the hosted project (run `npx supabase link` first)     |
+| `npm run db:check`                                     | Run the SQL self-check for checkout/order functions + RLS (local) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Reset the local DB (re-runs migrations + seed): `npx supabase db reset`.
 
-## Learn More
+## Promote a user to admin
 
-To learn more about Next.js, take a look at the following resources:
+Sign up normally, then run in the SQL editor (or `psql`):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```sql
+update public.profiles
+set role = 'admin'
+where id = (select id from auth.users where email = 'you@example.com');
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Clients cannot change `role` themselves (column-level privilege).
 
-## Deploy on Vercel
+## Windows note
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If `next` fails with `ERR_SWC_NATIVE_CACHE`, point SWC at a cache folder with standard permissions:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```powershell
+[Environment]::SetEnvironmentVariable("SWC_NATIVE_BINDING_CACHE", "$env:USERPROFILE\.swc-cache", "User")
+```

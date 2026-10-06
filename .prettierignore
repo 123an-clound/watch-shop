@@ -1,0 +1,6 @@
+.next
+node_modules
+package-lock.json
+src/types/database.types.ts
+supabase/.temp
+prompt_cho_ai.md
