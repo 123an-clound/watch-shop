@@ -40,7 +40,10 @@
     "cartCount": "Cart, {count, plural, =0 {empty} one {# item} other {# items}}",
     "admin": "Admin",
     "shopByBrand": "Shop by brand",
-    "shopByCategory": "Shop by category"
+    "shopByCategory": "Shop by category",
+    "quickContact": "Quick contact",
+    "callUs": "Call {phone}",
+    "chatZalo": "Chat on Zalo"
   },
   "Theme": {
     "toggle": "Toggle light/dark theme",
@@ -63,7 +66,8 @@
     "contact": "Contact",
     "trackOrder": "Track order",
     "rights": "© {year} {store}. All rights reserved.",
-    "paymentNote": "Cash on delivery (COD) nationwide."
+    "paymentNote": "Cash on delivery (COD) nationwide.",
+    "privacy": "Privacy policy"
   },
   "NotFound": {
     "title": "Page not found",
@@ -356,7 +360,42 @@
       "email": "Email",
       "address": "Showroom",
       "hours": "Opening hours",
-      "hoursValue": "9:00 – 21:00, every day"
+      "hoursValue": "9:00 – 21:00, every day",
+      "directions": "Get directions (Google Maps)"
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "How Luxe Watch collects, uses and protects your personal data.",
+      "sections": [
+        {
+          "heading": "Data we collect",
+          "body": "When you place an order or create an account we collect your name, phone number, email (if provided) and shipping address. To prevent spam, IP addresses are stored only as an irreversible hash for up to 24 hours. Your cart is stored in your browser (localStorage); cookies are used only to keep you signed in."
+        },
+        {
+          "heading": "How we use it",
+          "body": "We use your data to process and deliver orders, confirm orders by phone, provide warranty service and customer support. We do not sell personal data or use it for third-party advertising."
+        },
+        {
+          "heading": "Sharing",
+          "body": "Shipping details are shared with the delivery carrier. Data is stored and processed by our infrastructure providers (Supabase, Vercel) and the email service (if enabled) under data-processing agreements."
+        },
+        {
+          "heading": "Retention",
+          "body": "Order records are kept as long as needed for warranty and accounting obligations under Vietnamese law. You can ask us to delete your account and any data that is no longer required at any time."
+        },
+        {
+          "heading": "Your rights",
+          "body": "Under Decree 13/2023/ND-CP on personal data protection you may access, correct and delete your data and withdraw consent. Update your details in your account or contact us to exercise these rights."
+        },
+        {
+          "heading": "Analytics",
+          "body": "We use Vercel Web Analytics to measure aggregated, cookie-less visits that do not identify you."
+        },
+        {
+          "heading": "Contact",
+          "body": "For any privacy question, reach us by email or phone listed on the Contact page."
+        }
+      ]
     }
   },
   "Checkout": {

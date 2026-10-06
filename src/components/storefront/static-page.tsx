@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "./breadcrumbs";
 
-export type StaticPageKey = "about" | "warranty" | "shipping";
+export type StaticPageKey = "about" | "warranty" | "shipping" | "privacy";
 
 export async function staticPageMetadata(
   locale: string,

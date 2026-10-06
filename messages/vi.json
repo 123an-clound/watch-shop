@@ -40,7 +40,10 @@
     "cartCount": "Giỏ hàng, {count, plural, =0 {trống} other {# sản phẩm}}",
     "admin": "Quản trị",
     "shopByBrand": "Mua theo thương hiệu",
-    "shopByCategory": "Mua theo danh mục"
+    "shopByCategory": "Mua theo danh mục",
+    "quickContact": "Liên hệ nhanh",
+    "callUs": "Gọi {phone}",
+    "chatZalo": "Nhắn Zalo"
   },
   "Theme": {
     "toggle": "Đổi giao diện sáng/tối",
@@ -63,7 +66,8 @@
     "contact": "Liên hệ",
     "trackOrder": "Tra cứu đơn hàng",
     "rights": "© {year} {store}. Bảo lưu mọi quyền.",
-    "paymentNote": "Thanh toán khi nhận hàng (COD) trên toàn quốc."
+    "paymentNote": "Thanh toán khi nhận hàng (COD) trên toàn quốc.",
+    "privacy": "Chính sách bảo mật"
   },
   "NotFound": {
     "title": "Không tìm thấy trang",
@@ -602,7 +606,42 @@
       "email": "Email",
       "address": "Showroom",
       "hours": "Giờ mở cửa",
-      "hoursValue": "9:00 – 21:00, tất cả các ngày trong tuần"
+      "hoursValue": "9:00 – 21:00, tất cả các ngày trong tuần",
+      "directions": "Chỉ đường (Google Maps)"
+    },
+    "privacy": {
+      "title": "Chính sách bảo mật",
+      "description": "Cách Luxe Watch thu thập, sử dụng và bảo vệ dữ liệu cá nhân của bạn.",
+      "sections": [
+        {
+          "heading": "Dữ liệu chúng tôi thu thập",
+          "body": "Khi bạn đặt hàng hoặc tạo tài khoản, chúng tôi thu thập họ tên, số điện thoại, email (nếu cung cấp) và địa chỉ giao hàng. Để chống spam, địa chỉ IP được lưu dưới dạng mã băm (không thể đảo ngược) trong tối đa 24 giờ. Giỏ hàng được lưu trên trình duyệt của bạn (localStorage); cookie chỉ dùng để duy trì phiên đăng nhập."
+        },
+        {
+          "heading": "Mục đích sử dụng",
+          "body": "Dữ liệu được dùng để xử lý và giao đơn hàng, liên hệ xác nhận đơn, hỗ trợ bảo hành và chăm sóc khách hàng. Chúng tôi không bán dữ liệu cá nhân và không dùng cho quảng cáo của bên thứ ba."
+        },
+        {
+          "heading": "Chia sẻ dữ liệu",
+          "body": "Thông tin giao hàng được chia sẻ với đơn vị vận chuyển để giao hàng. Dữ liệu được lưu trữ và xử lý bởi các nhà cung cấp hạ tầng (Supabase, Vercel) và dịch vụ email (nếu bật) theo hợp đồng xử lý dữ liệu."
+        },
+        {
+          "heading": "Thời gian lưu trữ",
+          "body": "Thông tin đơn hàng được lưu trong thời gian cần thiết cho bảo hành và nghĩa vụ kế toán theo quy định pháp luật. Bạn có thể yêu cầu xóa tài khoản và dữ liệu không còn cần thiết bất kỳ lúc nào."
+        },
+        {
+          "heading": "Quyền của bạn",
+          "body": "Theo Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân, bạn có quyền được biết, truy cập, chỉnh sửa, xóa dữ liệu và rút lại sự đồng ý. Bạn có thể cập nhật thông tin trong mục Tài khoản hoặc liên hệ chúng tôi để thực hiện các quyền này."
+        },
+        {
+          "heading": "Phân tích truy cập",
+          "body": "Chúng tôi dùng Vercel Web Analytics để đo lượt truy cập ở dạng tổng hợp, không dùng cookie và không định danh cá nhân."
+        },
+        {
+          "heading": "Liên hệ",
+          "body": "Mọi câu hỏi về quyền riêng tư, vui lòng liên hệ qua email hoặc số điện thoại tại trang Liên hệ."
+        }
+      ]
     }
   },
   "Checkout": {

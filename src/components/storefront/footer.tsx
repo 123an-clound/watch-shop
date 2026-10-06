@@ -80,6 +80,11 @@ export async function Footer() {
                 {t("shipping")}
               </Link>
             </li>
+            <li>
+              <Link href="/privacy" className={link}>
+                {t("privacy")}
+              </Link>
+            </li>
           </ul>
         </nav>
 

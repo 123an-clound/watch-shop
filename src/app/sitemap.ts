@@ -27,7 +27,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("", undefined, 1),
     entry("/products", undefined, 0.9),
     entry("/brands", undefined, 0.7),
-    ...["/about", "/warranty", "/shipping", "/contact"].map((p) => entry(p, undefined, 0.3)),
+    ...["/about", "/warranty", "/shipping", "/contact", "/privacy"].map((p) =>
+      entry(p, undefined, 0.3),
+    ),
     ...categories.map((c) => entry(`/categories/${c.slug}`, c.updated_at, 0.8)),
     ...brands.map((b) => entry(`/brands/${b.slug}`, b.updated_at, 0.8)),
     ...products.map((p) => entry(`/products/${p.slug}`, p.updated_at, 0.7)),

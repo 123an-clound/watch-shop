@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/storefront/footer";
 import { Header } from "@/components/storefront/header";
+import { QuickContact } from "@/components/storefront/quick-contact";
 
 export default async function StorefrontLayout({ children, params }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
@@ -13,6 +14,7 @@ export default async function StorefrontLayout({ children, params }: LayoutProps
         {children}
       </main>
       <Footer />
+      <QuickContact />
     </>
   );
 }
