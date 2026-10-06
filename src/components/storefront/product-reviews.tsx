@@ -32,7 +32,7 @@ export async function ProductReviews({
         )}
       </div>
 
-      {reviews.count === 0 ? (
+      {reviews.items.length === 0 ? (
         <p className="mb-8 text-muted-foreground">{t("empty")}</p>
       ) : (
         <ul className="mb-10 grid gap-4 md:grid-cols-2">
@@ -41,10 +41,16 @@ export async function ProductReviews({
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <Stars rating={r.rating} label={t("stars", { count: r.rating })} />
                 <span className="font-medium">{displayName(r.author_name)}</span>
-                <span className="inline-flex items-center gap-1 text-xs text-success">
-                  <BadgeCheckIcon className="size-3.5" aria-hidden />
-                  {t("verified")}
-                </span>
+                {r.is_demo ? (
+                  <span className="rounded-sm border border-dashed px-1.5 text-xs text-muted-foreground">
+                    {t("demo")}
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 text-xs text-success">
+                    <BadgeCheckIcon className="size-3.5" aria-hidden />
+                    {t("verified")}
+                  </span>
+                )}
               </div>
               <p className="mt-3 text-sm leading-relaxed whitespace-pre-line">{r.body}</p>
               <p className="mt-3 text-xs text-muted-foreground">

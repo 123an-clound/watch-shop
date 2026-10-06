@@ -203,14 +203,14 @@ isOneToOne: false
                   ]
                 },"lw_reviews": {
                   Row: {
-                    "author_name": string,"body": string,"created_at": string,"id": string,"product_id": string,"rating": number,"status": string,"updated_at": string,"user_id": string | null
+                    "author_name": string,"body": string,"created_at": string,"id": string,"is_demo": boolean,"product_id": string,"rating": number,"status": string,"updated_at": string,"user_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "author_name": string,"body": string,"created_at"?: string,"id"?: string,"product_id": string,"rating": number,"status"?: string,"updated_at"?: string,"user_id"?: string | null
+                    "author_name": string,"body": string,"created_at"?: string,"id"?: string,"is_demo"?: boolean,"product_id": string,"rating": number,"status"?: string,"updated_at"?: string,"user_id"?: string | null
                   }
                   Update: {
-                    "author_name"?: string,"body"?: string,"created_at"?: string,"id"?: string,"product_id"?: string,"rating"?: number,"status"?: string,"updated_at"?: string,"user_id"?: string | null
+                    "author_name"?: string,"body"?: string,"created_at"?: string,"id"?: string,"is_demo"?: boolean,"product_id"?: string,"rating"?: number,"status"?: string,"updated_at"?: string,"user_id"?: string | null
                   }
                   Relationships: [
                     {

@@ -231,6 +231,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   <blockquote className="mt-4 flex-1 leading-relaxed">“{r.body}”</blockquote>
                   <figcaption className="mt-4 text-sm text-muted-foreground">
                     {displayName(r.author_name)}
+                    {r.is_demo && ` · ${tReviews("demo")}`}
                     {r.product && (
                       <>
                         {" · "}

@@ -120,18 +120,21 @@ export default async function ProductPage({ params }: PageProps<"/[locale]/produ
             bestRating: 5,
             worstRating: 1,
           },
-          review: reviews.items.slice(0, 5).map((r) => ({
-            "@type": "Review",
-            author: { "@type": "Person", name: displayName(r.author_name) },
-            datePublished: r.created_at.slice(0, 10),
-            reviewBody: r.body,
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: r.rating,
-              bestRating: 5,
-              worstRating: 1,
-            },
-          })),
+          review: reviews.items
+            .filter((r) => !r.is_demo)
+            .slice(0, 5)
+            .map((r) => ({
+              "@type": "Review",
+              author: { "@type": "Person", name: displayName(r.author_name) },
+              datePublished: r.created_at.slice(0, 10),
+              reviewBody: r.body,
+              reviewRating: {
+                "@type": "Rating",
+                ratingValue: r.rating,
+                bestRating: 5,
+                worstRating: 1,
+              },
+            })),
         }
       : {}),
   };

@@ -18,6 +18,7 @@ export default async function Page({ params }: PageProps<"/[locale]/about">) {
   setRequestLocale(locale);
   const [t, settings] = await Promise.all([getTranslations("Pages.about"), getSettings()]);
   const caption = pick(settings, "team_caption", locale);
+  const stories = t.raw("stories") as { title: string; body: string }[];
 
   return (
     <StaticPage pageKey="about">
@@ -41,6 +42,18 @@ export default async function Page({ params }: PageProps<"/[locale]/about">) {
           </figure>
         </section>
       )}
+      <section className="mt-14">
+        <h2 className="text-2xl">{t("storiesTitle")}</h2>
+        <p className="mt-1 text-xs text-muted-foreground">{t("demoNote")}</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {stories.map((s) => (
+            <article key={s.title} className="rounded-lg border bg-card p-5">
+              <h3 className="font-sans text-base font-semibold">{s.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
     </StaticPage>
   );
 }

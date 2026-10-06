@@ -26,7 +26,9 @@ export default async function AdminReviewsPage({ searchParams }: PageProps<"/adm
     getTranslations("Admin.reviews"),
     supabase
       .from("lw_reviews")
-      .select("id, author_name, rating, body, status, created_at, product:lw_products(id, name_vi)")
+      .select(
+        "id, author_name, rating, body, status, is_demo, created_at, product:lw_products(id, name_vi)",
+      )
       .eq("status", status)
       .order("created_at", { ascending: false })
       .limit(100),
@@ -38,6 +40,7 @@ export default async function AdminReviewsPage({ searchParams }: PageProps<"/adm
     rating: number;
     body: string;
     status: string;
+    is_demo: boolean;
     created_at: string;
     product: { id: string; name_vi: string } | null;
   }[];
@@ -77,6 +80,7 @@ export default async function AdminReviewsPage({ searchParams }: PageProps<"/adm
                   </Link>
                 )}
                 <Badge variant="outline">{t(r.status as (typeof STATUSES)[number])}</Badge>
+                {r.is_demo && <Badge variant="secondary">{t("demo")}</Badge>}
                 <span className="ml-auto text-xs text-muted-foreground">
                   {formatDate(r.created_at, "vi")}
                 </span>

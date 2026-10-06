@@ -314,7 +314,19 @@
           "body": "Our watchmakers handle servicing, strap changes, adjustments and movement warranty for as long as you own your watch."
         }
       ],
-      "teamTitle": "Our team"
+      "teamTitle": "Our team",
+      "storiesTitle": "Customer stories",
+      "demoNote": "Illustrative content — to be replaced with real customer stories.",
+      "stories": [
+        {
+          "title": "A 10th-anniversary gift",
+          "body": "A customer in Hanoi needed a slim dress watch for his wife's anniversary. We suggested three models for her wrist and budget, engraved the caseback and delivered before the date."
+        },
+        {
+          "title": "A first mechanical watch",
+          "body": "A young customer in Ho Chi Minh City wanted to start with a mechanical watch under 15 million VND. After a session on movements and winding, he chose a field watch and now comes back for regular servicing."
+        }
+      ]
     },
     "warranty": {
       "title": "Warranty & returns",
@@ -559,6 +571,7 @@
     "yourReviewPending": "Your review is awaiting approval.",
     "verified": "Verified purchase",
     "homeEyebrow": "Reviews",
-    "homeTitle": "What customers say"
+    "homeTitle": "What customers say",
+    "demo": "Sample content"
   }
 }

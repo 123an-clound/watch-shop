@@ -10,6 +10,7 @@ export type PublicReview = {
   rating: number;
   body: string;
   created_at: string;
+  is_demo: boolean;
 };
 
 /** Approved reviews for a product + aggregate (RLS only exposes approved rows to anon). */
@@ -17,14 +18,16 @@ export const getProductReviews = unstable_cache(
   async (productId: string) => {
     const { data, error } = await createPublicClient()
       .from("lw_reviews")
-      .select("id, author_name, rating, body, created_at")
+      .select("id, author_name, rating, body, created_at, is_demo")
       .eq("product_id", productId)
       .eq("status", "approved")
       .order("created_at", { ascending: false })
       .limit(50);
     if (error) throw new DataError("product reviews", error);
-    const count = data.length;
-    const average = count ? data.reduce((s, r) => s + r.rating, 0) / count : 0;
+    // Aggregate rating counts real (non-demo) reviews only.
+    const real = data.filter((r) => !r.is_demo);
+    const count = real.length;
+    const average = count ? real.reduce((s, r) => s + r.rating, 0) / count : 0;
     return { items: data as PublicReview[], count, average: Math.round(average * 10) / 10 };
   },
   ["product-reviews", CACHE_NS],
@@ -37,7 +40,7 @@ export const getLatestReviews = unstable_cache(
     const { data, error } = await createPublicClient()
       .from("lw_reviews")
       .select(
-        "id, author_name, rating, body, created_at, product:lw_products(slug, name_vi, name_en)",
+        "id, author_name, rating, body, created_at, is_demo, product:lw_products(slug, name_vi, name_en)",
       )
       .eq("status", "approved")
       .gte("rating", 4)

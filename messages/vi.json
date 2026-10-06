@@ -447,7 +447,8 @@
       "approve": "Duyệt",
       "reject": "Từ chối",
       "empty": "Chưa có đánh giá nào.",
-      "updated": "Đã cập nhật đánh giá."
+      "updated": "Đã cập nhật đánh giá.",
+      "demo": "Demo"
     }
   },
   "Home": {
@@ -582,7 +583,19 @@
           "body": "Đội ngũ kỹ thuật viên của chúng tôi hỗ trợ bảo dưỡng, thay dây, điều chỉnh và bảo hành bộ máy trong suốt quá trình sử dụng."
         }
       ],
-      "teamTitle": "Đội ngũ của chúng tôi"
+      "teamTitle": "Đội ngũ của chúng tôi",
+      "storiesTitle": "Câu chuyện khách hàng",
+      "demoNote": "Nội dung minh họa — sẽ được thay bằng câu chuyện thật của khách hàng.",
+      "stories": [
+        {
+          "title": "Món quà kỷ niệm 10 năm",
+          "body": "Một khách hàng tại Hà Nội cần chiếc đồng hồ dress mỏng để tặng vợ dịp kỷ niệm. Chúng tôi gợi ý ba mẫu theo cổ tay và ngân sách, khắc chữ trên nắp đáy và giao kịp trước ngày kỷ niệm."
+        },
+        {
+          "title": "Chiếc đồng hồ cơ đầu tiên",
+          "body": "Một bạn trẻ tại TP. Hồ Chí Minh muốn bắt đầu với đồng hồ cơ dưới 15 triệu. Sau buổi tư vấn về bộ máy và cách lên cót, bạn chọn một mẫu field watch và quay lại bảo dưỡng định kỳ tại xưởng."
+        }
+      ]
     },
     "warranty": {
       "title": "Bảo hành & đổi trả",
@@ -827,6 +840,7 @@
     "yourReviewPending": "Đánh giá của bạn đang chờ duyệt.",
     "verified": "Đã mua hàng",
     "homeEyebrow": "Đánh giá",
-    "homeTitle": "Khách hàng nói gì"
+    "homeTitle": "Khách hàng nói gì",
+    "demo": "Nội dung mẫu"
   }
 }
