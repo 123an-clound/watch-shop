@@ -182,5 +182,179 @@
       "newOrderToast": "New order: {code}",
       "view": "View"
     }
+  },
+  "Home": {
+    "metaTitle": "Authentic luxury watches",
+    "heroCta": "Explore the collection",
+    "heroSecondary": "Browse brands",
+    "featuredEyebrow": "Curated",
+    "featuredTitle": "Featured watches",
+    "brandsEyebrow": "Brands",
+    "brandsTitle": "Shop by brand",
+    "categoriesEyebrow": "Categories",
+    "categoriesTitle": "Shop by style",
+    "storyEyebrow": "Our story",
+    "storyTitle": "Time is a legacy",
+    "storyBody": "Every watch at {store} is hand-selected and inspected by our specialists and comes with complete authentic papers. We believe a beautiful watch doesn't just tell time — it keeps your most meaningful moments.",
+    "storyCta": "About us",
+    "trustAuthentic": "100% authentic",
+    "trustAuthenticBody": "Full box, papers and manufacturer warranty card.",
+    "trustWarranty": "5-year warranty",
+    "trustWarrantyBody": "Movement warranty serviced in our own workshop.",
+    "trustCod": "Cash on delivery",
+    "trustCodBody": "Inspect your watch before you pay.",
+    "trustShipping": "Free shipping",
+    "trustShippingBody": "On orders from {amount}."
+  },
+  "Products": {
+    "title": "All watches",
+    "description": "Authentic Rolex, Omega, Tissot, Seiko, Longines and TAG Heuer watches — nationwide delivery, cash on delivery.",
+    "searchTitle": "Results for “{q}”",
+    "resultCount": "{count, plural, =0 {No watches} one {# watch} other {# watches}}",
+    "filters": "Filters",
+    "showFilters": "Filter watches",
+    "applyFilters": "Apply",
+    "clearFilters": "Clear filters",
+    "search": "Keyword",
+    "category": "Category",
+    "brand": "Brand",
+    "price": "Price range",
+    "priceAny": "Any",
+    "priceLt10": "Under 10M ₫",
+    "price10to50": "10M – 50M ₫",
+    "price50to150": "50M – 150M ₫",
+    "priceGt150": "Over 150M ₫",
+    "movement": "Movement",
+    "caseSize": "Case size",
+    "sort": "Sort by",
+    "sortNewest": "Newest",
+    "sortPriceAsc": "Price: low to high",
+    "sortPriceDesc": "Price: high to low",
+    "all": "All",
+    "empty": "No watches match your filters.",
+    "emptyHint": "Try removing some filters or using a different keyword.",
+    "pagination": "Pagination",
+    "prev": "Previous page",
+    "next": "Next page",
+    "page": "Page {page}",
+    "sale": "Sale",
+    "soldOut": "Sold out",
+    "brandTitle": "Authentic {brand} watches",
+    "brandDescription": "Buy authentic {brand} watches with a 5-year warranty and cash on delivery.",
+    "categoryDescription": "Authentic {category} — 5-year warranty, cash on delivery, nationwide shipping.",
+    "brandsIndexTitle": "Watch brands",
+    "brandsIndexDescription": "Authentic Swiss and Japanese watch brands at Luxe Watch."
+  },
+  "Product": {
+    "inStock": "In stock",
+    "lowStock": "Only {count} left",
+    "outOfStock": "Sold out",
+    "sku": "SKU",
+    "addToCart": "Add to cart",
+    "buyNow": "Buy now",
+    "quantity": "Quantity",
+    "wishlistAdd": "Add to wishlist",
+    "wishlistRemove": "Remove from wishlist",
+    "wishlistAdded": "Added to your wishlist.",
+    "wishlistRemoved": "Removed from your wishlist.",
+    "wishlistLogin": "Please sign in to save favourites.",
+    "description": "Description",
+    "specs": "Specifications",
+    "related": "You may also like",
+    "gallery": "Product images",
+    "viewImage": "View image {index}",
+    "openZoom": "Zoom image",
+    "zoomTitle": "{name} — image {index}/{total}",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "save": "Save {amount}",
+    "perks": "5-year warranty · Nationwide delivery · Inspect before you pay",
+    "brand": "Brand"
+  },
+  "Features": {
+    "movement": "Movement",
+    "case_size": "Case size",
+    "case_material": "Case material",
+    "water_resistance": "Water resistance",
+    "crystal": "Crystal",
+    "strap_material": "Strap",
+    "values": {}
+  },
+  "Breadcrumb": {
+    "label": "Breadcrumb",
+    "home": "Home",
+    "products": "Watches",
+    "brands": "Brands",
+    "categories": "Categories"
+  },
+  "Pages": {
+    "about": {
+      "title": "About us",
+      "description": "Luxe Watch — an authentic luxury watch retailer in Vietnam.",
+      "sections": [
+        {
+          "heading": "Our story",
+          "body": "Luxe Watch was founded by watch enthusiasts who wanted to bring authentic timepieces to Vietnamese customers with dedicated, transparent service."
+        },
+        {
+          "heading": "Authenticity guaranteed",
+          "body": "Every watch has a clear provenance and comes with its box, warranty booklet and manufacturer papers. We refund 200% if any item is found to be inauthentic."
+        },
+        {
+          "heading": "After-sales service",
+          "body": "Our watchmakers handle servicing, strap changes, adjustments and movement warranty for as long as you own your watch."
+        }
+      ]
+    },
+    "warranty": {
+      "title": "Warranty & returns",
+      "description": "5-year warranty and 7-day returns at Luxe Watch.",
+      "sections": [
+        {
+          "heading": "5-year warranty",
+          "body": "Every watch carries a 5-year movement warranty serviced at the Luxe Watch workshop, alongside any international manufacturer warranty."
+        },
+        {
+          "heading": "7-day returns",
+          "body": "You may exchange or return a product within 7 days of delivery if it is unused and complete with seals, box and accessories."
+        },
+        {
+          "heading": "Exclusions",
+          "body": "The warranty does not cover damage from impact, improper water exposure, unauthorised repairs or normal wear of straps and cases."
+        }
+      ]
+    },
+    "shipping": {
+      "title": "Shipping policy",
+      "description": "Nationwide delivery with cash on delivery (COD).",
+      "sections": [
+        {
+          "heading": "Coverage",
+          "body": "We deliver nationwide through reputable carriers with insurance for high-value goods."
+        },
+        {
+          "heading": "Delivery times",
+          "body": "Ho Chi Minh City and Hanoi: 1–2 business days. Other provinces: 2–5 business days."
+        },
+        {
+          "heading": "Shipping fee",
+          "body": "The standard shipping fee is shown at checkout. Shipping is free for orders above the threshold."
+        },
+        {
+          "heading": "Cash on delivery",
+          "body": "You can inspect your watch before paying the courier. If the item does not match its description, you may refuse delivery."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Contact Luxe Watch for advice on choosing a watch.",
+      "intro": "We're always happy to help you find the right watch. Our team replies within 2 business hours.",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Showroom",
+      "hours": "Opening hours",
+      "hoursValue": "9:00 – 21:00, every day"
+    }
   }
 }

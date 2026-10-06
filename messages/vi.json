@@ -314,5 +314,189 @@
       "crystal": "Mặt kính",
       "strap_material": "Dây đeo"
     }
+  },
+  "Home": {
+    "metaTitle": "Đồng hồ cao cấp chính hãng",
+    "heroCta": "Khám phá bộ sưu tập",
+    "heroSecondary": "Xem thương hiệu",
+    "featuredEyebrow": "Tuyển chọn",
+    "featuredTitle": "Sản phẩm nổi bật",
+    "brandsEyebrow": "Thương hiệu",
+    "brandsTitle": "Mua theo thương hiệu",
+    "categoriesEyebrow": "Danh mục",
+    "categoriesTitle": "Mua theo phong cách",
+    "storyEyebrow": "Câu chuyện",
+    "storyTitle": "Thời gian là di sản",
+    "storyBody": "Mỗi chiếc đồng hồ tại {store} đều được tuyển chọn và kiểm định bởi đội ngũ chuyên gia, đi kèm đầy đủ giấy tờ chính hãng. Chúng tôi tin rằng một chiếc đồng hồ đẹp không chỉ đo thời gian, mà còn lưu giữ những khoảnh khắc đáng nhớ nhất của bạn.",
+    "storyCta": "Về chúng tôi",
+    "trustAuthentic": "100% chính hãng",
+    "trustAuthenticBody": "Đầy đủ hộp, sổ và thẻ bảo hành hãng.",
+    "trustWarranty": "Bảo hành 5 năm",
+    "trustWarrantyBody": "Bảo hành bộ máy tại trung tâm của chúng tôi.",
+    "trustCod": "Thanh toán khi nhận hàng",
+    "trustCodBody": "Kiểm tra hàng trước khi thanh toán.",
+    "trustShipping": "Miễn phí giao hàng",
+    "trustShippingBody": "Cho đơn hàng từ {amount}."
+  },
+  "Products": {
+    "title": "Tất cả đồng hồ",
+    "description": "Đồng hồ cao cấp chính hãng Rolex, Omega, Tissot, Seiko, Longines, TAG Heuer — giao hàng toàn quốc, thanh toán khi nhận hàng.",
+    "searchTitle": "Kết quả cho “{q}”",
+    "resultCount": "{count, plural, =0 {Không có sản phẩm} other {# sản phẩm}}",
+    "filters": "Bộ lọc",
+    "showFilters": "Lọc sản phẩm",
+    "applyFilters": "Áp dụng",
+    "clearFilters": "Xóa bộ lọc",
+    "search": "Từ khóa",
+    "category": "Danh mục",
+    "brand": "Thương hiệu",
+    "price": "Khoảng giá",
+    "priceAny": "Tất cả",
+    "priceLt10": "Dưới 10 triệu",
+    "price10to50": "10 – 50 triệu",
+    "price50to150": "50 – 150 triệu",
+    "priceGt150": "Trên 150 triệu",
+    "movement": "Bộ máy",
+    "caseSize": "Kích thước mặt",
+    "sort": "Sắp xếp",
+    "sortNewest": "Mới nhất",
+    "sortPriceAsc": "Giá: thấp đến cao",
+    "sortPriceDesc": "Giá: cao đến thấp",
+    "all": "Tất cả",
+    "empty": "Không tìm thấy sản phẩm phù hợp.",
+    "emptyHint": "Hãy thử bỏ bớt bộ lọc hoặc dùng từ khóa khác.",
+    "pagination": "Phân trang",
+    "prev": "Trang trước",
+    "next": "Trang sau",
+    "page": "Trang {page}",
+    "sale": "Giảm giá",
+    "soldOut": "Hết hàng",
+    "brandTitle": "Đồng hồ {brand} chính hãng",
+    "brandDescription": "Mua đồng hồ {brand} chính hãng, bảo hành 5 năm, thanh toán khi nhận hàng.",
+    "categoryDescription": "{category} chính hãng — bảo hành 5 năm, thanh toán khi nhận hàng, giao toàn quốc.",
+    "brandsIndexTitle": "Thương hiệu đồng hồ",
+    "brandsIndexDescription": "Các thương hiệu đồng hồ Thụy Sĩ và Nhật Bản chính hãng tại Luxe Watch."
+  },
+  "Product": {
+    "inStock": "Còn hàng",
+    "lowStock": "Chỉ còn {count} chiếc",
+    "outOfStock": "Hết hàng",
+    "sku": "Mã SKU",
+    "addToCart": "Thêm vào giỏ",
+    "buyNow": "Mua ngay",
+    "quantity": "Số lượng",
+    "wishlistAdd": "Thêm vào yêu thích",
+    "wishlistRemove": "Bỏ khỏi yêu thích",
+    "wishlistAdded": "Đã thêm vào danh sách yêu thích.",
+    "wishlistRemoved": "Đã bỏ khỏi danh sách yêu thích.",
+    "wishlistLogin": "Vui lòng đăng nhập để lưu sản phẩm yêu thích.",
+    "description": "Mô tả",
+    "specs": "Thông số kỹ thuật",
+    "related": "Có thể bạn cũng thích",
+    "gallery": "Hình ảnh sản phẩm",
+    "viewImage": "Xem ảnh {index}",
+    "openZoom": "Phóng to ảnh",
+    "zoomTitle": "{name} — ảnh {index}/{total}",
+    "prevImage": "Ảnh trước",
+    "nextImage": "Ảnh sau",
+    "save": "Tiết kiệm {amount}",
+    "perks": "Bảo hành 5 năm · Giao hàng toàn quốc · Kiểm tra hàng trước khi thanh toán",
+    "brand": "Thương hiệu"
+  },
+  "Features": {
+    "movement": "Bộ máy",
+    "case_size": "Kích thước mặt",
+    "case_material": "Chất liệu vỏ",
+    "water_resistance": "Chống nước",
+    "crystal": "Mặt kính",
+    "strap_material": "Dây đeo",
+    "values": {
+      "Automatic": "Cơ tự động",
+      "Quartz": "Pin (Quartz)",
+      "Manual": "Cơ lên dây tay",
+      "Sapphire": "Sapphire",
+      "Hardlex": "Hardlex",
+      "Leather": "Da",
+      "Silicone": "Cao su silicone",
+      "Steel bracelet": "Dây thép",
+      "Stainless steel": "Thép không gỉ"
+    }
+  },
+  "Breadcrumb": {
+    "label": "Đường dẫn",
+    "home": "Trang chủ",
+    "products": "Sản phẩm",
+    "brands": "Thương hiệu",
+    "categories": "Danh mục"
+  },
+  "Pages": {
+    "about": {
+      "title": "Giới thiệu",
+      "description": "Luxe Watch — nhà bán lẻ đồng hồ cao cấp chính hãng tại Việt Nam.",
+      "sections": [
+        {
+          "heading": "Câu chuyện của chúng tôi",
+          "body": "Luxe Watch được thành lập bởi những người yêu đồng hồ với mong muốn mang đến cho khách hàng Việt Nam những chiếc đồng hồ chính hãng với dịch vụ tận tâm và minh bạch."
+        },
+        {
+          "heading": "Cam kết chính hãng",
+          "body": "Mọi sản phẩm đều có nguồn gốc rõ ràng, đi kèm hộp, sổ bảo hành và giấy tờ của hãng. Chúng tôi hoàn tiền 200% nếu phát hiện hàng không chính hãng."
+        },
+        {
+          "heading": "Dịch vụ sau bán hàng",
+          "body": "Đội ngũ kỹ thuật viên của chúng tôi hỗ trợ bảo dưỡng, thay dây, điều chỉnh và bảo hành bộ máy trong suốt quá trình sử dụng."
+        }
+      ]
+    },
+    "warranty": {
+      "title": "Bảo hành & đổi trả",
+      "description": "Chính sách bảo hành 5 năm và đổi trả trong 7 ngày tại Luxe Watch.",
+      "sections": [
+        {
+          "heading": "Bảo hành 5 năm",
+          "body": "Tất cả đồng hồ được bảo hành bộ máy 5 năm tại trung tâm kỹ thuật của Luxe Watch, song song với bảo hành quốc tế của hãng (nếu có)."
+        },
+        {
+          "heading": "Đổi trả trong 7 ngày",
+          "body": "Bạn có thể đổi hoặc trả sản phẩm trong vòng 7 ngày kể từ khi nhận hàng nếu sản phẩm còn nguyên tem, hộp, phụ kiện và chưa qua sử dụng."
+        },
+        {
+          "heading": "Không áp dụng",
+          "body": "Bảo hành không áp dụng cho các hư hỏng do va đập, vào nước sai cách sử dụng, tự ý sửa chữa hoặc hao mòn tự nhiên của dây và vỏ."
+        }
+      ]
+    },
+    "shipping": {
+      "title": "Chính sách giao hàng",
+      "description": "Giao hàng toàn quốc, thanh toán khi nhận hàng (COD).",
+      "sections": [
+        {
+          "heading": "Phạm vi giao hàng",
+          "body": "Chúng tôi giao hàng trên toàn quốc thông qua các đơn vị vận chuyển uy tín, có bảo hiểm hàng hóa giá trị cao."
+        },
+        {
+          "heading": "Thời gian giao hàng",
+          "body": "Nội thành TP. Hồ Chí Minh và Hà Nội: 1–2 ngày làm việc. Các tỉnh thành khác: 2–5 ngày làm việc."
+        },
+        {
+          "heading": "Phí giao hàng",
+          "body": "Phí giao hàng tiêu chuẩn được hiển thị khi thanh toán. Miễn phí giao hàng cho đơn hàng đạt mức quy định."
+        },
+        {
+          "heading": "Thanh toán khi nhận hàng",
+          "body": "Bạn được kiểm tra sản phẩm trước khi thanh toán cho nhân viên giao hàng. Nếu sản phẩm không đúng mô tả, bạn có quyền từ chối nhận hàng."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Liên hệ",
+      "description": "Liên hệ Luxe Watch để được tư vấn chọn đồng hồ.",
+      "intro": "Chúng tôi luôn sẵn sàng tư vấn giúp bạn chọn chiếc đồng hồ phù hợp. Đội ngũ phản hồi trong vòng 2 giờ làm việc.",
+      "phone": "Điện thoại",
+      "email": "Email",
+      "address": "Showroom",
+      "hours": "Giờ mở cửa",
+      "hoursValue": "9:00 – 21:00, tất cả các ngày trong tuần"
+    }
   }
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { AdminMobileNav, AdminSidebar } from "@/components/admin/admin-nav";
 import { NewOrderBadge, NewOrderListener } from "@/components/admin/new-order-notifier";
@@ -8,6 +8,7 @@ import { SignOutButton } from "@/components/admin/sign-out-button";
 import { Providers } from "@/components/shared/providers";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { requireAdminPage } from "@/features/admin/auth";
+import { ADMIN_CLIENT_NAMESPACES, pickMessages } from "@/i18n/client-messages";
 import { getSettings } from "@/features/settings/queries";
 import { fontBody, fontDisplay } from "@/lib/fonts";
 import { SITE_URL } from "@/lib/seo";
@@ -21,11 +22,12 @@ export const metadata: Metadata = {
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const admin = await requireAdminPage();
-  const [t, tNav, tTheme, settings] = await Promise.all([
+  const [t, tNav, tTheme, settings, messages] = await Promise.all([
     getTranslations("Admin"),
     getTranslations("Admin.nav"),
     getTranslations("Theme"),
     getSettings(),
+    getMessages(),
   ]);
   const badge = <NewOrderBadge />;
 
@@ -36,7 +38,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       suppressHydrationWarning
     >
       <body className="min-h-full antialiased">
-        <NextIntlClientProvider locale="vi">
+        <NextIntlClientProvider
+          locale="vi"
+          messages={pickMessages(messages, ADMIN_CLIENT_NAMESPACES)}
+        >
           <Providers>
             <NewOrderListener />
             <div className="flex min-h-screen">
