@@ -228,7 +228,15 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "lw_admin_save_product":
+            "lw_admin_customers":
+{ Args: { "p_limit"?: number,"p_offset"?: number,"p_search"?: string }; Returns: {
+              "created_at": string,"email": string,"full_name": string,"id": string,"order_count": number,"phone": string,"role": string,"total_count": number,"total_spent": number
+            }[]
+                           },
+"lw_admin_dashboard":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
+"lw_admin_save_product":
 { Args: { "payload": Json }; Returns: Json
                            },
 "lw_cancel_order":

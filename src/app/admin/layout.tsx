@@ -45,14 +45,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Providers>
             <NewOrderListener />
             <div className="flex min-h-screen">
-              <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r bg-sidebar p-4 lg:flex">
+              <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r bg-sidebar p-4 lg:flex print:hidden">
                 <Link href="/admin" className="mb-6 px-3 font-heading text-xl">
                   {settings.store_name}
                 </Link>
                 <AdminSidebar badge={badge} />
               </aside>
               <div className="flex min-w-0 flex-1 flex-col">
-                <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/90 px-4 backdrop-blur">
+                <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/90 px-4 backdrop-blur print:hidden">
                   <AdminMobileNav storeName={settings.store_name} badge={badge} />
                   <p className="truncate text-sm text-muted-foreground">
                     {t("signedInAs", { name: admin.name })}
@@ -68,7 +68,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                     <SignOutButton redirectTo="/vi/login" />
                   </div>
                 </header>
-                <main id="main" className="flex-1 p-4 sm:p-6 lg:p-8">
+                <main id="main" className="flex-1 p-4 sm:p-6 lg:p-8 print:p-0">
                   {children}
                 </main>
               </div>
