@@ -2,6 +2,16 @@
 
 Luxury watch store (VI/EN) + admin dashboard. Next.js 16 (App Router) · Supabase · Tailwind v4 · shadcn/ui · next-intl.
 
+## Supabase
+
+Hosted on the shared Supabase project **Web-project** (`jtizooyjnllostamffpp`), which also serves
+other apps. Every object of this app is prefixed `lw_` (tables, functions, indexes) / `lw-` (storage
+buckets). `auth.users` and Auth settings (Site URL, redirect URLs, email templates) are shared.
+
+Migrations were applied to the cloud via the Supabase MCP (recorded as `lw_schema`, `lw_rls`,
+`lw_functions`, `lw_storage`), so their version IDs differ from the local files — apply future
+migrations the same way rather than `supabase db push`.
+
 ## Local setup
 
 ```powershell
