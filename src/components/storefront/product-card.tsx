@@ -32,6 +32,7 @@ export function ProductCard({
             fill
             sizes="(min-width: 1280px) 300px, (min-width: 768px) 33vw, 50vw"
             preload={priority}
+            fetchPriority={priority ? "high" : "auto"}
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
           />
         )}
